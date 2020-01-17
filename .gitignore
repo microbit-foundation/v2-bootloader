@@ -1,7 +1,5 @@
 /nRF5SDK/**
-/bootloader⁩/microbit⁩/ses⁩/Output⁩/**
-/bootloader⁩/microbit⁩_debug/ses⁩/Output⁩/**
-/testapp/microbit⁩/ses⁩/Output⁩/**
+**/ses/Output/
 *.emSession
 
 # Created by https://www.gitignore.io/api/swift,objective-c,macos
