@@ -1,6 +1,7 @@
 /nRF5SDK/**
 **/ses/Output/
 *.emSession
+*.jlink
 
 # Created by https://www.gitignore.io/api/swift,objective-c,macos
 
