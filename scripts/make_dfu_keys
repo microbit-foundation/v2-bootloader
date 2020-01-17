@@ -1,0 +1,6 @@
+#!/bin/bash
+FOLDER=`dirname "$0"`
+cd "$FOLDER"
+
+nrfutil keys generate dfu_private.key
+nrfutil keys display --key pk --format code dfu_private.key --out_file dfu_public_key.c

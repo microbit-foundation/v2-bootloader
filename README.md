@@ -21,3 +21,8 @@ https://infocenter.nordicsemi.com/topic/sdk_nrf5_v16.0.0/lib_crypto_backend_micr
 I installed the ARM GCC toolchain and location specified in
 nRF5SDK⁩/components⁩/toolchain⁩gcc/Makefile.posix
 and built nRF5SDK⁩/external⁩/micro-ecc/nrf52hf_armgcc/armgcc/Makefile
+
+### scripts/make_dfu_keys
+Uses "nrfutil keys" to generate private and public keys in its folder.
+The public key needs to be copied to the bootloader source.
+The private key is used create a signature for each application hex to be checked by the bootloader.
