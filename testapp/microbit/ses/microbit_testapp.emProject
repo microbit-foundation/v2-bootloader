@@ -29,7 +29,7 @@
       linker_printf_fmt_level="long"
       linker_scanf_fmt_level="long"
       linker_section_placement_file="flash_placement.xml"
-      linker_section_placement_macros="FLASH_PH_START=0x0;FLASH_PH_SIZE=0x80000;RAM_PH_START=0x20000000;RAM_PH_SIZE=0x20000;FLASH_START=0x27000;FLASH_SIZE=0x49000;RAM_START=0x20002ae8;RAM_SIZE=0x1d518"
+      linker_section_placement_macros="FLASH_START=0x27000;FLASH_SIZE=(0x72000-FLASH_START);RAM_START=0x20002270;FLASH_PH_START=0x0;FLASH_PH_SIZE=0x80000;RAM_PH_START=0x20000000;RAM_PH_SIZE=0x20000;RAM_SIZE=(RAM_PH_START+RAM_PH_SIZE-RAM_START)"
       linker_section_placements_segments="FLASH RX 0x0 0x80000;RAM RWX 0x20000000 0x20000;uicr_bootloader_start_address RX 0x10001014 0x4"
       project_directory=""
       project_type="Executable" />
