@@ -3,6 +3,7 @@
 *.emSession
 *.jlink
 /scripts/*.zip
+/scripts/*.hex
 
 # Created by https://www.gitignore.io/api/swift,objective-c,macos
 
