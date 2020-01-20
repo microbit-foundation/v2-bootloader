@@ -56,6 +56,12 @@ https://infocenter.nordicsemi.com/topic/sdk_nrf5_v16.0.0/lib_bootloader.html
 https://infocenter.nordicsemi.com/topic/ug_nrfutil/UG/nrfutil/nrfutil_settings_generate_display.html
 
 
+### Bonding
+The bootloader can require bonds by setting NRF_DFU_BLE_REQUIRES_BONDS and NRF_SDH_BLE_SERVICE_CHANGED.
+In this case, if the bootloader does not find valid peer data (see nrf_dfu_settings_peer_data_is_valid), it will simply reset.
+The peer data can only be provided by a valid application which has done the bonding (with NRF_DFU_BLE_BUTTONLESS_SUPPORTS_BONDS and NRF_SDH_BLE_SERVICE_CHANGED set).
+
+
 ### testapp placement macros
 These are modified to add calculations.
 FLASH_SIZE=(0x72000-FLASH_START), so it will work with both release and debug bootloaders. 
@@ -68,7 +74,7 @@ https://infocenter.nordicsemi.com/topic/sdk_nrf5_v16.0.0/lib_bootloader.html
 The application start address is given as 0x0002 6000, which seems to be wrong.
  
 7F000 bootloader_settings_page
-7E000 mbr_params_page
+7E000 mbr_params_page / bootloader settings backup
 78000 Bootloader (72000 for debug bootloader)
 27000 Application
 01000 SoftDevice
