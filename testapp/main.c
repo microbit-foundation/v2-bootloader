@@ -770,6 +770,8 @@ static void buttons_leds_init(bool * p_erase_bonds)
 {
     uint32_t err_code;
     bsp_event_t startup_event;
+ 
+    board_microbit_init();
 
     err_code = bsp_init(BSP_INIT_LEDS | BSP_INIT_BUTTONS, bsp_event_handler);
     APP_ERROR_CHECK(err_code);
@@ -870,6 +872,9 @@ int main(void)
     application_timers_start();
     advertising_start(erase_bonds);
 
+    nrf_gpio_pin_write( board_microbit_led_row[4], 1);
+    nrf_gpio_pin_write( board_microbit_led_col[4], 0);
+ 
     // Enter main loop.
     for (;;)
     {

@@ -16,7 +16,7 @@
       arm_target_device_name="nRF52833_xxAA"
       arm_target_interface_type="SWD"
       c_user_include_directories="../../;../config;../../../nRF5SDK/components;../../../nRF5SDK/components/ble/ble_advertising;../../../nRF5SDK/components/ble/ble_services/ble_dfu;../../../nRF5SDK/components/ble/common;../../../nRF5SDK/components/ble/nrf_ble_gatt;../../../nRF5SDK/components/ble/nrf_ble_qwr;../../../nRF5SDK/components/ble/peer_manager;../../../nRF5SDK/components/boards;../../../nRF5SDK/components/libraries/atomic;../../../nRF5SDK/components/libraries/atomic_fifo;../../../nRF5SDK/components/libraries/atomic_flags;../../../nRF5SDK/components/libraries/balloc;../../../nRF5SDK/components/libraries/bootloader;../../../nRF5SDK/components/libraries/bootloader/ble_dfu;../../../nRF5SDK/components/libraries/bootloader/dfu;../../../nRF5SDK/components/libraries/bsp;../../../nRF5SDK/components/libraries/button;../../../nRF5SDK/components/libraries/crc16;../../../nRF5SDK/components/libraries/delay;../../../nRF5SDK/components/libraries/experimental_section_vars;../../../nRF5SDK/components/libraries/fds;../../../nRF5SDK/components/libraries/fstorage;../../../nRF5SDK/components/libraries/log;../../../nRF5SDK/components/libraries/log/src;../../../nRF5SDK/components/libraries/memobj;../../../nRF5SDK/components/libraries/mutex;../../../nRF5SDK/components/libraries/pwr_mgmt;../../../nRF5SDK/components/libraries/ringbuf;../../../nRF5SDK/components/libraries/scheduler;../../../nRF5SDK/components/libraries/sortlist;../../../nRF5SDK/components/libraries/strerror;../../../nRF5SDK/components/libraries/svc;../../../nRF5SDK/components/libraries/timer;../../../nRF5SDK/components/libraries/util;../../../nRF5SDK/components/softdevice/common;../../../nRF5SDK/components/softdevice/s140/headers;../../../nRF5SDK/components/softdevice/s140/headers/nrf52;../../../nRF5SDK/components/toolchain/cmsis/include;../../../nRF5SDK/external/fprintf;../../../nRF5SDK/external/segger_rtt;../../../nRF5SDK/integration/nrfx;../../../nRF5SDK/integration/nrfx/legacy;../../../nRF5SDK/modules/nrfx;../../../nRF5SDK/modules/nrfx/drivers/include;../../../nRF5SDK/modules/nrfx/hal;../../../nRF5SDK/modules/nrfx/mdk;"
-      c_preprocessor_definitions="APP_TIMER_V2;APP_TIMER_V2_RTC1_ENABLED;BL_SETTINGS_ACCESS_ONLY;BOARD_PCA10100;CONFIG_GPIO_AS_PINRESET;FLOAT_ABI_HARD;INITIALIZE_USER_SECTIONS;NO_VTOR_CONFIG;NRF52833_XXAA;NRF_DFU_SVCI_ENABLED;NRF_DFU_TRANSPORT_BLE=1;NRF_SD_BLE_API_VERSION=7;S140;SOFTDEVICE_PRESENT;"
+      c_preprocessor_definitions="APP_TIMER_V2;APP_TIMER_V2_RTC1_ENABLED;BL_SETTINGS_ACCESS_ONLY;CUSTOM_BOARD_INC=board_microbit;CONFIG_GPIO_AS_PINRESET;FLOAT_ABI_HARD;INITIALIZE_USER_SECTIONS;NO_VTOR_CONFIG;NRF52833_XXAA;NRF_DFU_SVCI_ENABLED;NRF_DFU_TRANSPORT_BLE=1;NRF_SD_BLE_API_VERSION=7;S140;SOFTDEVICE_PRESENT;"
       debug_target_connection="J-Link"
       gcc_entry_point="Reset_Handler"
       macros="CMSIS_CONFIG_TOOL=../../../nRF5SDK/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar"
@@ -96,6 +96,8 @@
     <folder Name="Application">
       <file file_name="../../main.c" />
       <file file_name="../config/sdk_config.h" />
+      <file file_name="../../board_microbit.c" />
+      <file file_name="../../board_microbit.h" />
     </folder>
     <folder Name="nRF_SVC">
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_svci.c" />
