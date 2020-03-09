@@ -1,8 +1,8 @@
-PROJECT_NAME     := secure_bootloader_ble_s140_pca10100
+PROJECT_NAME     := microbit_bootloader
 TARGETS          := nrf52833_xxaa_s140
 OUTPUT_DIRECTORY := _build
 
-SDK_ROOT := ../../../../..
+SDK_ROOT := ../../../nRF5SDK
 PROJ_DIR := ../..
 
 $(OUTPUT_DIRECTORY)/nrf52833_xxaa_s140.out: \
@@ -40,8 +40,9 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/crypto/nrf_crypto_hash.c \
   $(SDK_ROOT)/components/libraries/crypto/nrf_crypto_init.c \
   $(SDK_ROOT)/components/libraries/crypto/nrf_crypto_shared.c \
-  $(PROJ_DIR)/../dfu_public_key.c \
+  $(PROJ_DIR)/dfu_public_key.c \
   $(PROJ_DIR)/main.c \
+  $(PROJ_DIR)/board_microbit.c \
   $(SDK_ROOT)/components/ble/common/ble_srv_common.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_app_start.c \
@@ -144,7 +145,7 @@ OPT = -Os -g3
 # C flags common to all targets
 CFLAGS += $(OPT)
 CFLAGS += -DBLE_STACK_SUPPORT_REQD
-CFLAGS += -DBOARD_PCA10100
+CFLAGS += -DCUSTOM_BOARD_INC=board_microbit
 CFLAGS += -DCONFIG_GPIO_AS_PINRESET
 CFLAGS += -DFLOAT_ABI_HARD
 CFLAGS += -DNRF52833_XXAA
@@ -175,7 +176,7 @@ ASMFLAGS += -mcpu=cortex-m4
 ASMFLAGS += -mthumb -mabi=aapcs
 ASMFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 ASMFLAGS += -DBLE_STACK_SUPPORT_REQD
-ASMFLAGS += -DBOARD_PCA10100
+ASMFLAGS += -DCUSTOM_BOARD_INC=board_microbit
 ASMFLAGS += -DCONFIG_GPIO_AS_PINRESET
 ASMFLAGS += -DFLOAT_ABI_HARD
 ASMFLAGS += -DNRF52833_XXAA
