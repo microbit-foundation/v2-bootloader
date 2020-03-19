@@ -2,4 +2,4 @@
 FOLDER=`dirname "$0"`
 cd "$FOLDER"
 
-nrfutil pkg generate --hw-version 52 --application-version 1 --sd-req 0xCA --key-file ./dfu_private.key --application ../testapp/microbit/ses/Output/Release/Exe/microbit_testapp.hex testapp.zip
+nrfutil pkg generate --hw-version 52 --application-version 1 --sd-req 0xCA --key-file ./dfu_private.key --application ../testapp/microbit/armgcc/_build/nrf52833_xxaa.hex testapp.zip
