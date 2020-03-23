@@ -7,10 +7,10 @@ BOOTLOADER=../bootloader/microbit/armgcc/_build/nrf52833_xxaa_s140.hex
 SOFTDEVICE=../nRF5SDK/components/softdevice/s140/hex/s140_nrf52_7.0.1_softdevice.hex
 MERGED=testapp.hex
 
-nrfutil settings generate --family NRF52 --application $APPHEX --application-version 0 --bootloader-version 0 --bl-settings-version 2 settings.hex
+nrfutil settings generate --family NRF52 --application $APPHEX --application-version 0 --bootloader-version 0 --bl-settings-version 2 --no-backup settings.hex
 
 mergehex --merge "$SOFTDEVICE" "$APPHEX" "$BOOTLOADER"  --output nosettings.hex
 mergehex --merge nosettings.hex settings.hex --output "$MERGED"
 
-rm nosettings.hex
-rm settings.hex
+#rm nosettings.hex
+#rm settings.hex
