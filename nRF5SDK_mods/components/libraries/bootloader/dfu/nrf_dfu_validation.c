@@ -553,7 +553,8 @@ nrf_dfu_result_t nrf_dfu_validation_prevalidate(void)
     }
 
     // Validate signature.
-    if (signature_required(p_command->init.type))
+    // microbit: Possibly temporarily, allow no signature but check it if one is provided
+    if (m_packet.has_signed_command && signature_required(p_command->init.type))
     {
         ret_val = nrf_dfu_validation_signature_check(signature_type,
                                                      p_signature,
@@ -694,6 +695,9 @@ static bool nrf_dfu_validation_hash_ok(uint8_t const * p_hash, uint32_t src_addr
 bool fw_hash_ok(dfu_init_command_t const * p_init, uint32_t fw_start_addr, uint32_t fw_size)
 {
     ASSERT(p_init != NULL);
+    // microbit: Possibly temporarily, allow no hash but check it if one is provided
+    if ( !p_init->has_hash || p_init->hash.hash_type == DFU_HASH_TYPE_NO_HASH || p_init->hash.hash.size == 0)
+        return true;
     return nrf_dfu_validation_hash_ok((uint8_t *)p_init->hash.hash.bytes, fw_start_addr, fw_size, true);
 }
 
