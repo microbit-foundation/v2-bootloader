@@ -118,7 +118,7 @@
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_flash.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_handling_error.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_mbr.c" />
-      <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_req_handler.c" />
+      <file file_name="../../../nRF5SDK_mods/components/libraries/bootloader/dfu/nrf_dfu_req_handler.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_settings.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_settings_svci.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_transport.c" />
