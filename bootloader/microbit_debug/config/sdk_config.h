@@ -99,7 +99,7 @@
 // <e> NRF_BL_DFU_ENTER_METHOD_BUTTON - Enter DFU mode on button press.
 //==========================================================
 #ifndef NRF_BL_DFU_ENTER_METHOD_BUTTON
-#define NRF_BL_DFU_ENTER_METHOD_BUTTON 1
+#define NRF_BL_DFU_ENTER_METHOD_BUTTON 0
 #endif
 // <o> NRF_BL_DFU_ENTER_METHOD_BUTTON_PIN  - Button for entering DFU mode.
  
@@ -251,7 +251,7 @@
 // <i>  it also impacts negatively on flash wear.
 
 #ifndef NRF_BL_FW_COPY_PROGRESS_STORE_STEP
-#define NRF_BL_FW_COPY_PROGRESS_STORE_STEP 8
+#define NRF_BL_FW_COPY_PROGRESS_STORE_STEP 128
 #endif
 
 // <o> NRF_BL_RESET_DELAY_MS - Time to wait before resetting the bootloader. 
@@ -1300,7 +1300,7 @@
 // <i> firmware upgrade. The size must be a multiple of the flash page size.
 
 #ifndef NRF_DFU_APP_DATA_AREA_SIZE
-#define NRF_DFU_APP_DATA_AREA_SIZE 8192
+#define NRF_DFU_APP_DATA_AREA_SIZE 12288
 #endif
 
 // <q> NRF_DFU_IN_APP  - Specifies that this code is in the app, not the bootloader, so some settings are off-limits.
