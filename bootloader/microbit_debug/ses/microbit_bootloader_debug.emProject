@@ -143,7 +143,7 @@
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_settings_svci.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_transport.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_utils.c" />
-      <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_validation.c" />
+      <file file_name="../../../nRF5SDK_mods/components/libraries/bootloader/dfu/nrf_dfu_validation.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_ver_validation.c" />
     </folder>
     <folder Name="nRF_SoftDevice">

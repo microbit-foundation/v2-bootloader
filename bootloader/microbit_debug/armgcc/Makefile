@@ -3,6 +3,7 @@ TARGETS          := nrf52833_xxaa_s140
 OUTPUT_DIRECTORY := _build
 
 SDK_ROOT := ../../../nRF5SDK
+MOD_ROOT := ../../../nRF5SDK_mods
 PROJ_DIR := ../..
 
 $(OUTPUT_DIRECTORY)/nrf52833_xxaa_s140.out: \
@@ -79,7 +80,7 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_settings_svci.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_transport.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_utils.c \
-  $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_validation.c \
+  $(MOD_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_validation.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_ver_validation.c \
   $(SDK_ROOT)/components/softdevice/common/nrf_sdh.c \
   $(SDK_ROOT)/components/softdevice/common/nrf_sdh_ble.c \
