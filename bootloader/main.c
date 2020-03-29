@@ -61,6 +61,10 @@
 #include "nrf_bootloader_info.h"
 #include "nrf_delay.h"
 
+
+static int m_progress = -1;
+
+
 static void on_error(void)
 {
     NRF_LOG_FINAL_FLUSH();
@@ -104,7 +108,19 @@ static void dfu_observer(nrf_dfu_evt_type_t evt_type)
     switch (evt_type)
     {
         case NRF_DFU_EVT_DFU_FAILED:
+            board_microbit_init();
+            bsp_board_init(BSP_INIT_LEDS);
+            bsp_board_led_on(BSP_BOARD_LED_0);
+            bsp_board_led_on(BSP_BOARD_LED_1);
+            bsp_board_led_on(BSP_BOARD_LED_2);
+            break;
         case NRF_DFU_EVT_DFU_ABORTED:
+            board_microbit_init();
+            bsp_board_init(BSP_INIT_LEDS);
+            bsp_board_led_on(BSP_BOARD_LED_0);
+            bsp_board_led_on(BSP_BOARD_LED_1);
+            bsp_board_led_on(BSP_BOARD_LED_2);
+            break;
         case NRF_DFU_EVT_DFU_INITIALIZED:
             board_microbit_init();
             bsp_board_init(BSP_INIT_LEDS);
@@ -117,6 +133,23 @@ static void dfu_observer(nrf_dfu_evt_type_t evt_type)
             bsp_board_led_on(BSP_BOARD_LED_2);
             break;
         case NRF_DFU_EVT_DFU_STARTED:
+            m_progress = 4;
+            bsp_board_leds_off();
+            bsp_board_led_on( m_progress);
+            break;
+        case NRF_DFU_EVT_DFU_ABORTED + 1:
+            bsp_board_led_off(m_progress);
+            if ( m_progress < 0 || m_progress >= 5)
+            {
+                m_progress = 0;
+            }
+            else
+            {
+                m_progress++;
+                if ( m_progress < 0 || m_progress >= 5)
+                    m_progress = 0;
+            }
+            bsp_board_led_on(m_progress);
             break;
         default:
             break;
