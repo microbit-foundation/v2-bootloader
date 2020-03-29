@@ -138,13 +138,14 @@ static void dfu_observer(nrf_dfu_evt_type_t evt_type)
             bsp_board_led_on( m_progress);
             break;
         case NRF_DFU_EVT_DFU_ABORTED + 1:
-            bsp_board_led_off(m_progress);
             if ( m_progress < 0 || m_progress >= 5)
             {
+                bsp_board_leds_off();
                 m_progress = 0;
             }
             else
             {
+                bsp_board_led_off(m_progress);
                 m_progress++;
                 if ( m_progress < 0 || m_progress >= 5)
                     m_progress = 0;
