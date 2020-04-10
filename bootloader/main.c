@@ -137,6 +137,12 @@ static void dfu_observer(nrf_dfu_evt_type_t evt_type)
             bsp_board_leds_off();
             bsp_board_led_on( m_progress);
             break;
+        default:
+            break;
+    }
+    
+    switch ( (int)evt_type)
+    {
         case NRF_DFU_EVT_DFU_ABORTED + 1:
             if ( m_progress < 0 || m_progress >= 5)
             {
@@ -151,8 +157,6 @@ static void dfu_observer(nrf_dfu_evt_type_t evt_type)
                     m_progress = 0;
             }
             bsp_board_led_on(m_progress);
-            break;
-        default:
             break;
     }
 }

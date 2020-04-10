@@ -1,4 +1,5 @@
 /nRF5SDK/**
+**/armgcc/_build/
 **/ses/Output/
 *.emSession
 *.jlink

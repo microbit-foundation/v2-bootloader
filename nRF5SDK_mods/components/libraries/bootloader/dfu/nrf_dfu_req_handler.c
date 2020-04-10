@@ -519,6 +519,7 @@ static void on_data_obj_write_request(nrf_dfu_request_t * p_req, nrf_dfu_respons
     p_res->write.crc    = s_dfu_settings.progress.firmware_image_crc;
     p_res->write.offset = s_dfu_settings.progress.firmware_image_offset;
     
+    // nRF5SDK_mods
     m_observer( (nrf_dfu_evt_type_t) ( NRF_DFU_EVT_DFU_ABORTED + 1));
 }
 

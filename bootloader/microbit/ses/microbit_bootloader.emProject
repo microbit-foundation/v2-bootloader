@@ -97,7 +97,7 @@
     <folder Name="nRF_Bootloader">
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/nrf_bootloader.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/nrf_bootloader_app_start.c" />
-      <file file_name="../../../nRF5SDK/components/libraries/bootloader/nrf_bootloader_app_start_final.c" />
+      <file file_name="../../../nRF5SDK_mods/components/libraries/bootloader/nrf_bootloader_app_start_final.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/nrf_bootloader_dfu_timers.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/nrf_bootloader_fw_activation.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/nrf_bootloader_info.c" />

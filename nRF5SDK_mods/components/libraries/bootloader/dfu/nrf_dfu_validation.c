@@ -517,10 +517,28 @@ static nrf_dfu_result_t update_data_addr_get(dfu_init_command_t const * p_init,
                                              uint32_t                   fw_size,
                                              uint32_t                 * p_addr)
 {
+    bool single_bank = use_single_bank(p_init->type);
+    bool keep_app    = NRF_DFU_FORCE_DUAL_BANK_APP_UPDATES;
+    
+    // nRF5SDK_mods
+    // When NO_VALIDATION is set, assume bank_0.image_size is not valid,
+    // so don't protect the application and do not attempt dual-bank DFU
+#if !defined(BLE_STACK_SUPPORT_REQD)
+#error "Assumed BLE_STACK_SUPPORT_REQD. See nrf_dfu_softdevice_invalidate.");
+#endif
+#if NRF_DFU_SUPPORTS_EXTERNAL_APP
+#error "Assumed NRF_DFU_SUPPORTS_EXTERNAL_APP 0. See use_single_bank.");
+#endif
+    if ( s_dfu_settings.boot_validation_app.type == NO_VALIDATION)
+    {
+        single_bank = true;
+        keep_app = false;
+    }
+
     nrf_dfu_result_t ret_val = NRF_DFU_RES_CODE_SUCCESS;
     ret_code_t err_code = nrf_dfu_cache_prepare(fw_size,
-                                                use_single_bank(p_init->type),
-                                                NRF_DFU_FORCE_DUAL_BANK_APP_UPDATES,
+                                                single_bank,
+                                                keep_app,
                                                 keep_softdevice(p_init));
     if (err_code != NRF_SUCCESS)
     {
@@ -553,6 +571,7 @@ nrf_dfu_result_t nrf_dfu_validation_prevalidate(void)
     }
 
     // Validate signature.
+    // nRF5SDK_mods
     // microbit: Possibly temporarily, allow no signature but check it if one is provided
     if (m_packet.has_signed_command && signature_required(p_command->init.type))
     {
@@ -695,6 +714,7 @@ static bool nrf_dfu_validation_hash_ok(uint8_t const * p_hash, uint32_t src_addr
 bool fw_hash_ok(dfu_init_command_t const * p_init, uint32_t fw_start_addr, uint32_t fw_size)
 {
     ASSERT(p_init != NULL);
+    // nRF5SDK_mods
     // microbit: Possibly temporarily, allow no hash but check it if one is provided
     if ( !p_init->has_hash || p_init->hash.hash_type == DFU_HASH_TYPE_NO_HASH || p_init->hash.hash.size == 0)
         return true;
