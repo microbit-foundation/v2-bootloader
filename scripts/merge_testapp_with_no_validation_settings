@@ -1,0 +1,13 @@
+#!/bin/bash
+FOLDER=`dirname "$0"`
+cd "$FOLDER"
+
+APPHEX=../testapp/microbit/armgcc/_build/nrf52833_xxaa.hex
+BOOTLOADER=../bootloader/microbit/armgcc/_build/nrf52833_xxaa_s140.hex
+SOFTDEVICE=../nRF5SDK/components/softdevice/s140/hex/s140_nrf52_7.0.1_softdevice.hex
+MERGED=testapp_no_validation.hex
+
+mergehex --merge "$SOFTDEVICE" "$APPHEX" "$BOOTLOADER"  --output nosettings.hex
+mergehex --merge nosettings.hex no_validation_settings.hex --output "$MERGED"
+
+rm nosettings.hex
