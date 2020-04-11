@@ -1,5 +1,7 @@
 /nRF5SDK/**
 **/armgcc/_build/
+**/armgcc/bootloader.bin
+**/armgcc/bootloader.o
 **/ses/Output/
 *.emSession
 *.jlink

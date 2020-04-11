@@ -1,5 +1,5 @@
 PROJECT_NAME     := microbit_bootloader
-TARGETS          := nrf52833_xxaa_s140
+TARGETS          := nrf52833_xxaa_s140 nrf52833_xxaa_s140_object
 OUTPUT_DIRECTORY := _build
 
 SDK_ROOT := ../../../nRF5SDK
@@ -8,6 +8,9 @@ PROJ_DIR := ../..
 
 $(OUTPUT_DIRECTORY)/nrf52833_xxaa_s140.out: \
   LINKER_SCRIPT  := secure_bootloader_gcc_nrf52.ld
+
+$(OUTPUT_DIRECTORY)/nrf52833_xxaa_s140_object.out: \
+  LINKER_SCRIPT  := secure_bootloader_gcc_nrf52_object.ld
 
 # Source files common to all targets
 SRC_FILES += \
@@ -225,6 +228,7 @@ help:
 	@echo		flash_softdevice
 	@echo		sdk_config - starting external tool for editing sdk_config.h
 	@echo		flash      - flashing binary
+	@echo		bob 	   - bootloader.o object file
 
 TEMPLATE_PATH := $(SDK_ROOT)/components/toolchain/gcc
 
@@ -254,3 +258,9 @@ SDK_CONFIG_FILE := ../config/sdk_config.h
 CMSIS_CONFIG_TOOL := $(SDK_ROOT)/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar
 sdk_config:
 	java -jar $(CMSIS_CONFIG_TOOL) $(SDK_CONFIG_FILE)
+
+bob: nrf52833_xxaa_s140_object
+	@echo Making bootloader.o
+	arm-none-eabi-objcopy -I ihex --output-target=binary $(OUTPUT_DIRECTORY)/nrf52833_xxaa_s140_object.hex bootloader.bin
+	arm-none-eabi-objcopy --rename-section .data=.bootloader -I binary -O elf32-littlearm -B arm bootloader.bin bootloader.o
+
