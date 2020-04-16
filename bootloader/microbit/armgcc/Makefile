@@ -1,12 +1,16 @@
 PROJECT_NAME     := microbit_bootloader
-TARGETS          := nrf52833_xxaa_s140
+TARGETS          := nrf52833_xxaa_s140 nrf52833_xxaa_s140_object
 OUTPUT_DIRECTORY := _build
 
 SDK_ROOT := ../../../nRF5SDK
+MOD_ROOT := ../../../nRF5SDK_mods
 PROJ_DIR := ../..
 
 $(OUTPUT_DIRECTORY)/nrf52833_xxaa_s140.out: \
   LINKER_SCRIPT  := secure_bootloader_gcc_nrf52.ld
+
+$(OUTPUT_DIRECTORY)/nrf52833_xxaa_s140_object.out: \
+  LINKER_SCRIPT  := secure_bootloader_gcc_nrf52_object.ld
 
 # Source files common to all targets
 SRC_FILES += \
@@ -46,7 +50,7 @@ SRC_FILES += \
   $(SDK_ROOT)/components/ble/common/ble_srv_common.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_app_start.c \
-  $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_app_start_final.c \
+  $(MOD_ROOT)/components/libraries/bootloader/nrf_bootloader_app_start_final.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_dfu_timers.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_fw_activation.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_info.c \
@@ -60,12 +64,12 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_flash.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_handling_error.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_mbr.c \
-  $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_req_handler.c \
+  $(MOD_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_req_handler.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_settings.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_settings_svci.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_transport.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_utils.c \
-  $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_validation.c \
+  $(MOD_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_validation.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_ver_validation.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_svci.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_svci_handler.c \
@@ -224,6 +228,7 @@ help:
 	@echo		flash_softdevice
 	@echo		sdk_config - starting external tool for editing sdk_config.h
 	@echo		flash      - flashing binary
+	@echo		bob 	   - bootloader.o object file
 
 TEMPLATE_PATH := $(SDK_ROOT)/components/toolchain/gcc
 
@@ -253,3 +258,9 @@ SDK_CONFIG_FILE := ../config/sdk_config.h
 CMSIS_CONFIG_TOOL := $(SDK_ROOT)/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar
 sdk_config:
 	java -jar $(CMSIS_CONFIG_TOOL) $(SDK_CONFIG_FILE)
+
+bob: nrf52833_xxaa_s140_object
+	@echo Making bootloader.o
+	arm-none-eabi-objcopy -I ihex --output-target=binary $(OUTPUT_DIRECTORY)/nrf52833_xxaa_s140_object.hex bootloader.bin
+	arm-none-eabi-objcopy --rename-section .data=.bootloader -I binary -O elf32-littlearm -B arm bootloader.bin bootloader.o
+

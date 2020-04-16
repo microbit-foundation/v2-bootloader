@@ -54,18 +54,19 @@ void board_microbit_init(void);
 
 
 // LEDs definitions for board microbit - use the rows of the first column 
-#define LEDS_NUMBER    4
+#define LEDS_NUMBER    5
 
 #define LED_1          21
 #define LED_2          22
 #define LED_3          15
 #define LED_4          24
+#define LED_5          19
 #define LED_START      LED_1
 #define LED_STOP       LED_4
 
 #define LEDS_ACTIVE_STATE 1
 
-#define LEDS_LIST { LED_1, LED_2, LED_3, LED_4 }
+#define LEDS_LIST { LED_1, LED_2, LED_3, LED_4, LED_5 }
 
 #define LEDS_INV_MASK  LEDS_MASK
 

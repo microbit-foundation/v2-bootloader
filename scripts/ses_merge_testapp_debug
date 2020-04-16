@@ -1,0 +1,16 @@
+#!/bin/bash
+FOLDER=`dirname "$0"`
+cd "$FOLDER"
+
+APPHEX=../testapp/microbit/ses/Output/Debug/Exe/microbit_testapp.hex
+BOOTLOADER=../bootloader/microbit_debug/ses/Output/Release/Exe/microbit_bootloader_debug.hex
+SOFTDEVICE=../nRF5SDK/components/softdevice/s140/hex/s140_nrf52_7.0.1_softdevice.hex
+MERGED=testapp_debug.hex
+
+nrfutil settings generate --family NRF52 --application $APPHEX --application-version 0 --bootloader-version 0 --bl-settings-version 2 settings.hex
+
+mergehex --merge "$SOFTDEVICE" "$APPHEX" "$BOOTLOADER"  --output nosettings.hex
+mergehex --merge nosettings.hex settings.hex --output "$MERGED"
+
+rm nosettings.hex
+rm settings.hex

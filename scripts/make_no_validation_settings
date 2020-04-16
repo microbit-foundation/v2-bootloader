@@ -1,0 +1,9 @@
+#!/bin/bash
+FOLDER=`dirname "$0"`
+cd "$FOLDER"
+
+APPHEX=../testapp/microbit/armgcc/_build/nrf52833_xxaa.hex
+
+nrfutil settings generate --app-boot-validation NO_VALIDATION --family NRF52 --application $APPHEX --application-version 0 --bootloader-version 0 --bl-settings-version 2 no_validation_settings.hex
+
+#nrfutil settings generate                                    --family NRF52 --application $APPHEX --application-version 0 --bootloader-version 0 --bl-settings-version 2 settings.hex

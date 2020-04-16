@@ -114,7 +114,7 @@
     <folder Name="nRF_Bootloader">
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/nrf_bootloader.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/nrf_bootloader_app_start.c" />
-      <file file_name="../../../nRF5SDK/components/libraries/bootloader/nrf_bootloader_app_start_final.c" />
+      <file file_name="../../../nRF5SDK_mods/components/libraries/bootloader/nrf_bootloader_app_start_final.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/nrf_bootloader_dfu_timers.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/nrf_bootloader_fw_activation.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/nrf_bootloader_info.c" />
@@ -138,12 +138,12 @@
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_flash.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_handling_error.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_mbr.c" />
-      <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_req_handler.c" />
+      <file file_name="../../../nRF5SDK_mods/components/libraries/bootloader/dfu/nrf_dfu_req_handler.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_settings.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_settings_svci.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_transport.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_utils.c" />
-      <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_validation.c" />
+      <file file_name="../../../nRF5SDK_mods/components/libraries/bootloader/dfu/nrf_dfu_validation.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_ver_validation.c" />
     </folder>
     <folder Name="nRF_SoftDevice">

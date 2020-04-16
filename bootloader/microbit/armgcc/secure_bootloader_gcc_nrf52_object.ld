@@ -15,6 +15,7 @@ MEMORY
 
 SECTIONS
 {
+/* Remove uicr_bootloader_start_address when creating bootloader.o object file
   . = ALIGN(4);
   .uicr_bootloader_start_address :
   {
@@ -22,6 +23,7 @@ SECTIONS
     KEEP(*(SORT(.uicr_bootloader_start_address*)))
     PROVIDE(__stop_uicr_bootloader_start_address = .);
   } > uicr_bootloader_start_address
+*/
   . = ALIGN(4);
   .bootloader_settings_page(NOLOAD) :
   {
@@ -29,6 +31,7 @@ SECTIONS
     KEEP(*(SORT(.bootloader_settings_page*)))
     PROVIDE(__stop_bootloader_settings_page = .);
   } > bootloader_settings_page
+/* Remove uicr_mbr_params_page when creating bootloader.o object file
   . = ALIGN(4);
   .uicr_mbr_params_page :
   {
@@ -36,6 +39,7 @@ SECTIONS
     KEEP(*(SORT(.uicr_mbr_params_page*)))
     PROVIDE(__stop_uicr_mbr_params_page = .);
   } > uicr_mbr_params_page
+*/
   . = ALIGN(4);
   .mbr_params_page(NOLOAD) :
   {
