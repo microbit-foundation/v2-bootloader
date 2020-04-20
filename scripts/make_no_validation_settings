@@ -4,6 +4,9 @@ cd "$FOLDER"
 
 APPHEX=../testapp/microbit/armgcc/_build/nrf52833_xxaa.hex
 
+#nrfutil settings generate                                    --family NRF52 --application $APPHEX --application-version 0 --bootloader-version 0 --bl-settings-version 2 settings.hex
 nrfutil settings generate --app-boot-validation NO_VALIDATION --family NRF52 --application $APPHEX --application-version 0 --bootloader-version 0 --bl-settings-version 2 no_validation_settings.hex
 
-#nrfutil settings generate                                    --family NRF52 --application $APPHEX --application-version 0 --bootloader-version 0 --bl-settings-version 2 settings.hex
+arm-none-eabi-objcopy -I ihex --output-target=binary no_validation_settings.hex no_validation_settings.bin
+
+arm-none-eabi-objcopy --rename-section .data=.settings -I binary -O elf32-littlearm -B arm no_validation_settings.bin no_validation_settings.o
