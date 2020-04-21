@@ -1,0 +1,7 @@
+#!/bin/bash
+FOLDER=`dirname "$0"`
+cd "$FOLDER"
+
+arm-none-eabi-objcopy -I ihex --output-target=binary uicr.hex uicr.bin
+
+arm-none-eabi-objcopy --rename-section .data=.uicr -I binary -O elf32-littlearm -B arm uicr.bin uicr.o
