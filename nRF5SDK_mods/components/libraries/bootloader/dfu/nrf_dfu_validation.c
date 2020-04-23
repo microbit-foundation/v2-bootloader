@@ -163,7 +163,7 @@ typedef struct {
  */
 static bool stored_init_cmd_decode(void)
 {
-    if ( memcmp( s_dfu_settings.init_command, "microbit_app", 12))
+    if ( 0 == memcmp( s_dfu_settings.init_command, "microbit_app", 12))
     {
         microbit_dfu_app_t mdi;
         ASSERT( sizeof(mdi) <= sizeof(s_dfu_settings.init_command));
