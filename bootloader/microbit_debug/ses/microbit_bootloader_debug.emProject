@@ -83,7 +83,7 @@
     </folder>
     <folder Name="nRF_SVC">
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_svci.c" />
-      <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_svci_handler.c" />
+      <file file_name="../../../nRF5SDK_mods/components/libraries/bootloader/dfu/nrf_dfu_svci_handler.c" />
       <file file_name="../../../nRF5SDK/components/libraries/svc/nrf_svc_handler.c" />
     </folder>
     <folder Name="nRF_Oberon_Crypto">
@@ -134,13 +134,13 @@
     <folder Name="nRF_DFU">
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/dfu-cc.pb.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu.c" />
-      <file file_name="../../../nRF5SDK/components/libraries/bootloader/ble_dfu/nrf_dfu_ble.c" />
+      <file file_name="../../../nRF5SDK_mods/components/libraries/bootloader/ble_dfu/nrf_dfu_ble.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_flash.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_handling_error.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_mbr.c" />
       <file file_name="../../../nRF5SDK_mods/components/libraries/bootloader/dfu/nrf_dfu_req_handler.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_settings.c" />
-      <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_settings_svci.c" />
+      <file file_name="../../../nRF5SDK_mods/components/libraries/bootloader/dfu/nrf_dfu_settings_svci.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_transport.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/dfu/nrf_dfu_utils.c" />
       <file file_name="../../../nRF5SDK_mods/components/libraries/bootloader/dfu/nrf_dfu_validation.c" />

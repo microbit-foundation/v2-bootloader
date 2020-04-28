@@ -45,7 +45,7 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/crypto/backend/micro_ecc/micro_ecc_backend_ecdsa.c \
   $(SDK_ROOT)/components/boards/boards.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_svci.c \
-  $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_svci_handler.c \
+  $(MOD_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_svci_handler.c \
   $(SDK_ROOT)/components/libraries/svc/nrf_svc_handler.c \
   $(SDK_ROOT)/components/libraries/crypto/nrf_crypto_ecc.c \
   $(SDK_ROOT)/components/libraries/crypto/nrf_crypto_ecdsa.c \
@@ -71,13 +71,13 @@ SRC_FILES += \
   $(SDK_ROOT)/components/ble/common/ble_srv_common.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/dfu-cc.pb.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu.c \
-  $(SDK_ROOT)/components/libraries/bootloader/ble_dfu/nrf_dfu_ble.c \
+  $(MOD_ROOT)/components/libraries/bootloader/ble_dfu/nrf_dfu_ble.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_flash.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_handling_error.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_mbr.c \
   $(MOD_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_req_handler.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_settings.c \
-  $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_settings_svci.c \
+  $(MOD_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_settings_svci.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_transport.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_utils.c \
   $(MOD_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_validation.c \
