@@ -109,7 +109,9 @@ bool nrf_dfu_settings_peer_data_is_valid(void)
     return (p_peer_data->crc == crc);
 }
 
-#else // not NRF_DFU_BLE_REQUIRES_BONDS
+// nRF5SDK_mods
+// #else // not NRF_DFU_BLE_REQUIRES_BONDS
+#endif
 
 ret_code_t nrf_dfu_settings_adv_name_write(nrf_dfu_adv_name_t * p_adv_name)
 {
@@ -160,7 +162,8 @@ bool nrf_dfu_settings_adv_name_is_valid(void)
     return (p_adv_name->crc == crc);
 }
 
-#endif
+// nRF5SDK_mods
+// #endif
 
 
 //lint -save -e(14)

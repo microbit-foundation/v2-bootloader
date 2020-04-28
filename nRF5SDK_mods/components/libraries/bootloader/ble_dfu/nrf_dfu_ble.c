@@ -110,6 +110,8 @@ DFU_TRANSPORT_REGISTER(nrf_dfu_transport_t const ble_dfu_transport) =
 
 #if (NRF_DFU_BLE_REQUIRES_BONDS)
 static nrf_dfu_peer_data_t m_peer_data;
+// nRF5SDK_mods
+static bool                m_peer_data_is_valid;
 #else
 static nrf_dfu_adv_name_t  m_adv_name;
 #endif
@@ -204,28 +206,32 @@ static uint32_t advertising_start(void)
     NRF_LOG_DEBUG("Advertising...");
 
 #if (NRF_DFU_BLE_REQUIRES_BONDS)
-    ble_gap_irk_t empty_irk = {{0}};
-
-    if (memcmp(m_peer_data.ble_id.id_info.irk, empty_irk.irk, sizeof(ble_gap_irk_t)) != 0)
+// nRF5SDK_mods
+    if ( m_peer_data_is_valid)
     {
-        adv_flag                 = BLE_GAP_ADV_FLAG_BR_EDR_NOT_SUPPORTED;
-        adv_params.filter_policy = BLE_GAP_ADV_FP_FILTER_CONNREQ;
+        ble_gap_irk_t empty_irk = {{0}};
 
-        ble_gap_addr_t   const * const p_gap_addr   = &m_peer_data.ble_id.id_addr_info;
-        ble_gap_id_key_t const * const p_gap_id_key = &m_peer_data.ble_id;
-
-        err_code = sd_ble_gap_whitelist_set(&p_gap_addr, 1);
-        if (err_code != NRF_SUCCESS)
+        if (memcmp(m_peer_data.ble_id.id_info.irk, empty_irk.irk, sizeof(ble_gap_irk_t)) != 0)
         {
-            NRF_LOG_WARNING("sd_ble_gap_whitelist_set() returned %s",
-                            NRF_LOG_ERROR_STRING_GET(err_code));
-        }
+            adv_flag                 = BLE_GAP_ADV_FLAG_BR_EDR_NOT_SUPPORTED;
+            adv_params.filter_policy = BLE_GAP_ADV_FP_FILTER_CONNREQ;
 
-        err_code = sd_ble_gap_device_identities_set(&p_gap_id_key, NULL, 1);
-        if (err_code != NRF_SUCCESS)
-        {
-            NRF_LOG_WARNING("sd_ble_gap_device_identities_set() returned %s",
-                            NRF_LOG_ERROR_STRING_GET(err_code));
+            ble_gap_addr_t   const * const p_gap_addr   = &m_peer_data.ble_id.id_addr_info;
+            ble_gap_id_key_t const * const p_gap_id_key = &m_peer_data.ble_id;
+
+            err_code = sd_ble_gap_whitelist_set(&p_gap_addr, 1);
+            if (err_code != NRF_SUCCESS)
+            {
+                NRF_LOG_WARNING("sd_ble_gap_whitelist_set() returned %s",
+                                NRF_LOG_ERROR_STRING_GET(err_code));
+            }
+
+            err_code = sd_ble_gap_device_identities_set(&p_gap_id_key, NULL, 1);
+            if (err_code != NRF_SUCCESS)
+            {
+                NRF_LOG_WARNING("sd_ble_gap_device_identities_set() returned %s",
+                                NRF_LOG_ERROR_STRING_GET(err_code));
+            }
         }
     }
 #endif /* NRF_DFU_BLE_REQUIRES_BONDS */
@@ -862,6 +868,9 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
             ble_gap_irk_t      * p_id_info  = NULL;
 
             #if (NRF_DFU_BLE_REQUIRES_BONDS)
+            // nRF5SDK_mods
+            if ( m_peer_data_is_valid)
+            {
                 /* If there is a match in diversifier, then set the correct keys. */
                 if (p_gap->params.sec_info_request.master_id.ediv ==
                     m_peer_data.enc_key.master_id.ediv)
@@ -869,6 +878,7 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
                     p_enc_info = &m_peer_data.enc_key.enc_info;
                 }
                 p_id_info = &m_peer_data.ble_id.id_info;
+            }
             #endif
 
             err_code = sd_ble_gap_sec_info_reply(p_gap->conn_handle, p_enc_info, p_id_info, NULL);
@@ -878,8 +888,12 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
         case BLE_GAP_EVT_CONN_SEC_UPDATE:
         case BLE_GATTS_EVT_SYS_ATTR_MISSING:
         {
+            // nRF5SDK_mods
             #if (NRF_DFU_BLE_REQUIRES_BONDS)
+            if ( m_peer_data_is_valid)
                 err_code = service_changed_send();
+            else
+                err_code = sd_ble_gatts_sys_attr_set(p_gap->conn_handle, NULL, 0, 0);
             #else
                 err_code = sd_ble_gatts_sys_attr_set(p_gap->conn_handle, NULL, 0, 0);
             #endif
@@ -1031,6 +1045,14 @@ static uint32_t dfu_pkt_char_add(ble_dfu_t * const p_dfu)
         .max_len   = MAX_DFU_PKT_LEN,
     };
 
+// nRF5SDK_mods
+#if (NRF_DFU_BLE_REQUIRES_BONDS)
+    if ( m_peer_data_is_valid)
+        attr_md.write_perm.lv = 2;
+    else
+        attr_md.write_perm.lv = 1;
+#endif
+
     return sd_ble_gatts_characteristic_add(p_dfu->service_handle,
                                            &char_md,
                                            &attr_char_value,
@@ -1080,7 +1102,15 @@ static uint32_t dfu_ctrl_pt_add(ble_dfu_t * const p_dfu)
         .p_attr_md = &attr_md,
         .max_len   = BLE_GATT_ATT_MTU_DEFAULT,
     };
-
+    
+// nRF5SDK_mods
+#if (NRF_DFU_BLE_REQUIRES_BONDS)
+    if ( m_peer_data_is_valid)
+        attr_md.write_perm.lv = 2;
+    else
+        attr_md.write_perm.lv = 1;
+#endif
+    
     return sd_ble_gatts_characteristic_add(p_dfu->service_handle,
                                            &char_md,
                                            &attr_char_value,
@@ -1156,17 +1186,21 @@ uint32_t ble_dfu_transport_init(nrf_dfu_observer_t observer)
 
 #if (NRF_DFU_BLE_REQUIRES_BONDS)
     /* Copy out the peer data if bonds are required */
-    if (nrf_dfu_settings_peer_data_is_valid())
+    // nRF5SDK_mods
+    m_peer_data_is_valid = nrf_dfu_settings_peer_data_is_valid()
+                            && s_dfu_settings.bank_0.bank_code == NRF_DFU_BANK_VALID_APP;
+    if ( m_peer_data_is_valid)
     {
         NRF_LOG_DEBUG("Copying peer data");
 
         err_code = nrf_dfu_settings_peer_data_copy(&m_peer_data);
         UNUSED_RETURN_VALUE(err_code);
     }
-    else
-    {
-        APP_ERROR_HANDLER(NRF_ERROR_INTERNAL);
-    }
+    // nRF5SDK_mods
+//    else
+//    {
+//        APP_ERROR_HANDLER(NRF_ERROR_INTERNAL);
+//    }
 #else
     /* Copy out the new advertisement name when bonds are not required and the name is set. */
     if (nrf_dfu_settings_adv_name_is_valid())
@@ -1229,11 +1263,21 @@ uint32_t ble_dfu_transport_close(nrf_dfu_transport_t const * p_exception)
             UNUSED_RETURN_VALUE(err_code);
         }
 
+// nRF5SDK_mods
+#if (NRF_DFU_BLE_REQUIRES_BONDS)
+// TODO: sd_softdevice_disable hangs - sometimes!
+//        err_code = nrf_sdh_disable_request();
+//        if (err_code == NRF_SUCCESS)
+//        {
+//            NRF_LOG_DEBUG("BLE transport shut down.");
+//        }
+#else
         err_code = nrf_sdh_disable_request();
         if (err_code == NRF_SUCCESS)
         {
             NRF_LOG_DEBUG("BLE transport shut down.");
         }
+#endif
     }
 
     return err_code;

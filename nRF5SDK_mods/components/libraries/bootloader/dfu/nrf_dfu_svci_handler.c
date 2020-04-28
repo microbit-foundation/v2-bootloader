@@ -129,8 +129,9 @@ static uint32_t nrf_dfu_set_peer_data_on_sys_evt(uint32_t sys_event, nrf_dfu_pee
     return ret_val;
 }
 
-#elif (NRF_DFU_TRANSPORT_BLE && !NRF_DFU_BLE_REQUIRES_BONDS)
-
+// nRF5SDK_mods
+// #elif (NRF_DFU_TRANSPORT_BLE && !NRF_DFU_BLE_REQUIRES_BONDS)
+#endif
 
 NRF_SVCI_ASYNC_HANDLER_CREATE(NRF_DFU_SVCI_SET_ADV_NAME,
     nrf_dfu_set_adv_name,  nrf_dfu_adv_name_t,  nrf_dfu_set_adv_name_state_t);
@@ -209,4 +210,5 @@ static uint32_t nrf_dfu_set_adv_name_on_sys_evt(uint32_t sys_event, nrf_dfu_set_
     return ret_val;
 }
 
-#endif  // NRF_DFU_TRANSPORT_BLE && !NRF_DFU_BLE_REQUIRES_BONDS
+// nRF5SDK_mods
+// #endif  // NRF_DFU_TRANSPORT_BLE && !NRF_DFU_BLE_REQUIRES_BONDS
