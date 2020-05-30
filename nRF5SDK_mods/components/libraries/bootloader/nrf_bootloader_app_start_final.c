@@ -229,22 +229,9 @@ void nrf_bootloader_app_start_final(uint32_t vector_table_addr)
     }
     APP_ERROR_CHECK(ret_val);
 
-    // nRF5SDK_mods
-    // When NO_VALIDATION is set, assume bank_0.image_size is not valid,
-    // so don't protect the application and do not attempt dual-bank DFU
-    // Never protect the application
-//    if ( s_dfu_settings.boot_validation_app.type == NO_VALIDATION)
-//    {
-        ret_val = nrf_bootloader_flash_protect(0,
-                        nrf_dfu_bank0_start_addr(),
-                        false);
-//    }
-//    else
-//    {
-//        ret_val = nrf_bootloader_flash_protect(0,
-//                        nrf_dfu_bank0_start_addr() + ALIGN_TO_PAGE(s_dfu_settings.bank_0.image_size),
-//                        false);
-//    }
+    ret_val = nrf_bootloader_flash_protect(0,
+                    nrf_dfu_bank0_start_addr() + ALIGN_TO_PAGE(s_dfu_settings.bank_0.image_size),
+                    false);
 
     if (!NRF_BOOTLOADER_READ_PROTECT && (ret_val != NRF_SUCCESS))
     {
