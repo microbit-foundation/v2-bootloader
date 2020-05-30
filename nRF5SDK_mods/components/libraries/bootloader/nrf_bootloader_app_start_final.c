@@ -202,42 +202,44 @@ __attribute__((noinline, long_call, section(".data")))
 #endif
 void nrf_bootloader_app_start_final(uint32_t vector_table_addr)
 {
-    ret_code_t ret_val;
-
-    // Protect MBR & bootloader code and params pages.
-    if (NRF_BOOTLOADER_READ_PROTECT)
-    {
-        ret_val = nrf_bootloader_flash_protect(0, MBR_SIZE, NRF_BOOTLOADER_READ_PROTECT);
-    }
-
-    // Size of the flash area to protect.
-    uint32_t area_size;
-
-    area_size = BOOTLOADER_SIZE + NRF_MBR_PARAMS_PAGE_SIZE;
-    if (!NRF_BL_DFU_ALLOW_UPDATE_FROM_APP && !NRF_BL_DFU_ENTER_METHOD_BUTTONLESS && !NRF_DFU_TRANSPORT_BLE)
-    {
-        area_size += BOOTLOADER_SETTINGS_PAGE_SIZE;
-    }
-
-    ret_val = nrf_bootloader_flash_protect(BOOTLOADER_START_ADDR,
-                                           area_size,
-                                           NRF_BOOTLOADER_READ_PROTECT);
-
-    if (!NRF_BOOTLOADER_READ_PROTECT && (ret_val != NRF_SUCCESS))
-    {
-        NRF_LOG_ERROR("Could not protect bootloader and settings pages, 0x%x.", ret_val);
-    }
-    APP_ERROR_CHECK(ret_val);
-
-    ret_val = nrf_bootloader_flash_protect(0,
-                    nrf_dfu_bank0_start_addr() + ALIGN_TO_PAGE(s_dfu_settings.bank_0.image_size),
-                    false);
-
-    if (!NRF_BOOTLOADER_READ_PROTECT && (ret_val != NRF_SUCCESS))
-    {
-        NRF_LOG_ERROR("Could not protect SoftDevice and application, 0x%x.", ret_val);
-    }
-    APP_ERROR_CHECK(ret_val);
+// nRF5SDK_mods
+// Remove all write protection
+//    ret_code_t ret_val;
+//
+//    // Protect MBR & bootloader code and params pages.
+//    if (NRF_BOOTLOADER_READ_PROTECT)
+//    {
+//        ret_val = nrf_bootloader_flash_protect(0, MBR_SIZE, NRF_BOOTLOADER_READ_PROTECT);
+//    }
+//
+//    // Size of the flash area to protect.
+//    uint32_t area_size;
+//
+//    area_size = BOOTLOADER_SIZE + NRF_MBR_PARAMS_PAGE_SIZE;
+//    if (!NRF_BL_DFU_ALLOW_UPDATE_FROM_APP && !NRF_BL_DFU_ENTER_METHOD_BUTTONLESS && !NRF_DFU_TRANSPORT_BLE)
+//    {
+//        area_size += BOOTLOADER_SETTINGS_PAGE_SIZE;
+//    }
+//
+//    ret_val = nrf_bootloader_flash_protect(BOOTLOADER_START_ADDR,
+//                                           area_size,
+//                                           NRF_BOOTLOADER_READ_PROTECT);
+//
+//    if (!NRF_BOOTLOADER_READ_PROTECT && (ret_val != NRF_SUCCESS))
+//    {
+//        NRF_LOG_ERROR("Could not protect bootloader and settings pages, 0x%x.", ret_val);
+//    }
+//    APP_ERROR_CHECK(ret_val);
+//
+//    ret_val = nrf_bootloader_flash_protect(0,
+//                    nrf_dfu_bank0_start_addr() + ALIGN_TO_PAGE(s_dfu_settings.bank_0.image_size),
+//                    false);
+//
+//    if (!NRF_BOOTLOADER_READ_PROTECT && (ret_val != NRF_SUCCESS))
+//    {
+//        NRF_LOG_ERROR("Could not protect SoftDevice and application, 0x%x.", ret_val);
+//    }
+//    APP_ERROR_CHECK(ret_val);
 
     // Run application
     app_start(vector_table_addr);
