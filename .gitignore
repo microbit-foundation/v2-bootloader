@@ -7,6 +7,8 @@
 *.jlink
 /scripts/*.zip
 /scripts/*.hex
+/scripts/*.bin
+/scripts/*.o
 
 # Created by https://www.gitignore.io/api/swift,objective-c,macos
 

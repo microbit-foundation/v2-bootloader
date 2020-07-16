@@ -60,19 +60,19 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/crypto/backend/nrf_sw/nrf_sw_backend_hash.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/dfu-cc.pb.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu.c \
-  $(SDK_ROOT)/components/libraries/bootloader/ble_dfu/nrf_dfu_ble.c \
+  $(MOD_ROOT)/components/libraries/bootloader/ble_dfu/nrf_dfu_ble.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_flash.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_handling_error.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_mbr.c \
   $(MOD_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_req_handler.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_settings.c \
-  $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_settings_svci.c \
+  $(MOD_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_settings_svci.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_transport.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_utils.c \
   $(MOD_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_validation.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_ver_validation.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_svci.c \
-  $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_svci_handler.c \
+  $(MOD_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_svci_handler.c \
   $(SDK_ROOT)/components/libraries/svc/nrf_svc_handler.c \
   $(SDK_ROOT)/components/softdevice/common/nrf_sdh.c \
   $(SDK_ROOT)/components/softdevice/common/nrf_sdh_ble.c \

@@ -146,6 +146,16 @@ static void pb_decoding_callback(pb_istream_t *str,
     }
 }
 
+// simple struct for init, instead of pb encoded dfu_packet_t
+typedef struct {
+    uint8_t  magic[12];                 // identify this struct "microbit_app"
+    uint32_t version;                   // version of this struct == 1
+    uint32_t app_size;                  // only used for DFU_FW_TYPE_APPLICATION, DFU_FW_TYPE_EXTERNAL_APPLICATION
+    uint32_t hash_size;                 // 32 => DFU_HASH_TYPE_SHA256 or zero to bypass hash check
+    uint8_t  hash_bytes[32];            // hash of whole DFU download
+} microbit_dfu_app_t;
+
+
 /** @brief Function for decoding byte stream into variable.
  *
  *  @retval true   If the stored init command was successfully decoded.
@@ -153,6 +163,67 @@ static void pb_decoding_callback(pb_istream_t *str,
  */
 static bool stored_init_cmd_decode(void)
 {
+    if ( 0 == memcmp( s_dfu_settings.init_command, "microbit_app", 12))
+    {
+        microbit_dfu_app_t mdi;
+        ASSERT( sizeof(mdi) <= sizeof(s_dfu_settings.init_command));
+        memcpy( &mdi, s_dfu_settings.init_command, sizeof( mdi));
+        
+        m_init_packet_valid    = false;
+        m_init_packet_data_ptr = NULL;
+        m_init_packet_data_len = 0;
+        memset(&m_packet, 0, sizeof(m_packet));
+        
+        if ( mdi.version != 1)
+        {
+            NRF_LOG_ERROR("Handler: Invalid microbit_dfu_command_t version.");
+            return false;
+        }
+
+        dfu_command_t *p_command = &m_packet.command;
+        
+        m_packet.has_signed_command     = false;
+        m_packet.has_command            = !m_packet.has_signed_command;
+                
+        p_command->has_op_code    = false;            // not used
+        p_command->op_code        = DFU_OP_CODE_INIT;
+        p_command->has_init       = true;
+        
+        p_command->init.has_fw_version    = true;
+        p_command->init.fw_version        = 1;
+        p_command->init.has_hw_version    = true;
+        p_command->init.hw_version        = NRF_DFU_HW_VERSION;
+        p_command->init.sd_req_count      = 1;
+        p_command->init.sd_req[0]         = SD_OFFSET_GET_UINT16(MBR_SIZE, 0x0C);     //s140_nrf52_7.0.1=0xCA
+
+        p_command->init.has_type          = true;
+        p_command->init.type              = DFU_FW_TYPE_APPLICATION;
+        p_command->init.has_sd_size       = true;
+        p_command->init.sd_size           = 0;
+        p_command->init.has_bl_size       = true;
+        p_command->init.bl_size           = 0;
+        p_command->init.has_app_size      = true;
+        p_command->init.app_size          = mdi.app_size;
+        p_command->init.has_hash          = true;
+        
+        p_command->init.hash.hash_type    = DFU_HASH_TYPE_SHA256;
+        p_command->init.hash.hash.size    = mdi.hash_size;
+        memcpy( p_command->init.hash.hash.bytes, mdi.hash_bytes, sizeof(mdi.hash_bytes));
+        
+        p_command->init.has_is_debug  = true;
+        p_command->init.is_debug      = 0;
+        
+        p_command->init.boot_validation_count         = 1;
+        p_command->init.boot_validation[0].type       = VALIDATE_CRC;
+        p_command->init.boot_validation[0].bytes.size = 0;
+        
+        m_init_packet_valid = true;
+        
+        mp_init = &p_command->init;
+
+        return true;
+    }
+    
     m_pb_stream = pb_istream_from_buffer(s_dfu_settings.init_command,
                                          s_dfu_settings.progress.command_size);
 
