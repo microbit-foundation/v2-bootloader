@@ -1231,6 +1231,12 @@ uint32_t ble_dfu_transport_init(nrf_dfu_observer_t observer)
 
     NRF_LOG_DEBUG("BLE DFU transport initialized.");
 
+    // nRF5SDK_mods
+    if (m_observer)
+    {
+        m_observer( NRF_DFU_EVT_DFU_ABORTED + 2);
+    }
+    
     return NRF_SUCCESS;
 }
 

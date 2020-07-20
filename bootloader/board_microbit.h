@@ -46,49 +46,46 @@ extern "C" {
 
 #include "nrf_gpio.h"
 
-
-extern unsigned char board_microbit_led_row[5];
-extern unsigned char board_microbit_led_col[5];
-
-void board_microbit_init(void);
-
-
 // LEDs definitions for board microbit - use the rows of the first column 
-#define LEDS_NUMBER    5
-
-#define LED_1          21
-#define LED_2          22
-#define LED_3          15
-#define LED_4          24
-#define LED_5          19
-#define LED_START      LED_1
-#define LED_STOP       LED_4
-
-#define LEDS_ACTIVE_STATE 1
-
-#define LEDS_LIST { LED_1, LED_2, LED_3, LED_4, LED_5 }
-
-#define LEDS_INV_MASK  LEDS_MASK
-
-#define BSP_LED_0      21
-#define BSP_LED_1      22
-#define BSP_LED_2      15
-#define BSP_LED_3      24
-
-#define BUTTONS_NUMBER 2
-
-#define BUTTON_1       14
-#define BUTTON_2       23
-//#define BUTTON_3       24
-//#define BUTTON_4       25
+//#define LEDS_NUMBER    5
+//
+//#define LED_1          21
+//#define LED_2          22
+//#define LED_3          15
+//#define LED_4          24
+//#define LED_5          19
+//#define LED_START      LED_1
+//#define LED_STOP       LED_4
+//
+//#define LEDS_ACTIVE_STATE 1
+//
+//#define LEDS_LIST { LED_1, LED_2, LED_3, LED_4, LED_5 }
+//
+//#define LEDS_INV_MASK  LEDS_MASK
+//
+//#define BSP_LED_0      21
+//#define BSP_LED_1      22
+//#define BSP_LED_2      15
+//#define BSP_LED_3      24
+//
+//#define BUTTONS_NUMBER 2
+//
+//#define BUTTON_1       14
+//#define BUTTON_2       23
+////#define BUTTON_3       24
+////#define BUTTON_4       25
 #define BUTTON_PULL    NRF_GPIO_PIN_PULLUP
+//
+//#define BUTTONS_ACTIVE_STATE 0
+//
+//#define BUTTONS_LIST { BUTTON_1, BUTTON_2 } //, BUTTON_3, BUTTON_4 }
+//
+//#define BSP_BUTTON_0   BUTTON_1
+//#define BSP_BUTTON_1   BUTTON_2
 
-#define BUTTONS_ACTIVE_STATE 0
 
-#define BUTTONS_LIST { BUTTON_1, BUTTON_2 } //, BUTTON_3, BUTTON_4 }
+// BELOW HERE NOT REQUIRED
 
-#define BSP_BUTTON_0   BUTTON_1
-#define BSP_BUTTON_1   BUTTON_2
 //#define BSP_BUTTON_2   BUTTON_3
 //#define BSP_BUTTON_3   BUTTON_4
 
