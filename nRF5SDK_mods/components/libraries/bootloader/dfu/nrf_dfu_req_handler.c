@@ -78,6 +78,11 @@ static uint32_t m_firmware_size_req;            /**< The size of the entire firm
 
 static nrf_dfu_observer_t m_observer;
 
+// nRF5SDK_mods
+int nRF5SDK_mods_dfu_percent_complete()
+{
+    return 100 * s_dfu_settings.progress.firmware_image_offset / m_firmware_size_req;
+}
 
 static void on_dfu_complete(nrf_fstorage_evt_t * p_evt)
 {

@@ -4,6 +4,7 @@ OUTPUT_DIRECTORY := _build
 
 SDK_ROOT := ../../../nRF5SDK
 MOD_ROOT := ../../../nRF5SDK_mods
+MSDK_ROOT := ../../../microbit_sdk
 PROJ_DIR := ../..
 
 $(OUTPUT_DIRECTORY)/nrf52833_xxaa_s140.out: \
@@ -46,12 +47,14 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/crypto/nrf_crypto_shared.c \
   $(PROJ_DIR)/dfu_public_key.c \
   $(PROJ_DIR)/main.c \
-  $(PROJ_DIR)/board_microbit.c \
+  $(MSDK_ROOT)/microbit_symbol.c \
+  $(MSDK_ROOT)/microbit_display.c \
+  $(MSDK_ROOT)/microbit_progress.c \
   $(SDK_ROOT)/components/ble/common/ble_srv_common.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_app_start.c \
   $(MOD_ROOT)/components/libraries/bootloader/nrf_bootloader_app_start_final.c \
-  $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_dfu_timers.c \
+  $(MOD_ROOT)/components/libraries/bootloader/nrf_bootloader_dfu_timers.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_fw_activation.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_info.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_wdt.c \
@@ -87,6 +90,8 @@ SRC_FILES += \
 
 # Include folders common to all targets
 INC_FOLDERS += \
+  $(MSDK_ROOT) \
+  $(MOD_ROOT)/components/libraries/bootloader \
   $(SDK_ROOT)/components/libraries/crypto/backend/micro_ecc \
   $(SDK_ROOT)/components/libraries/memobj \
   $(SDK_ROOT)/components/libraries/sha256 \

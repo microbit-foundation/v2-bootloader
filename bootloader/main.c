@@ -47,7 +47,6 @@
  */
 
 #include <stdint.h>
-#include "boards.h"
 #include "nrf_mbr.h"
 #include "nrf_bootloader.h"
 #include "nrf_bootloader_app_start.h"
@@ -62,7 +61,8 @@
 #include "nrf_delay.h"
 
 
-static int m_progress = -1;
+#include "microbit_sdk.h"
+extern int nRF5SDK_mods_dfu_percent_complete();
 
 
 static void on_error(void)
@@ -100,63 +100,47 @@ void app_error_handler_bare(uint32_t error_code)
     on_error();
 }
 
+
+static void microbit_timer_callback(void)
+{
+    microbit_display_update();
+}
+
+
 /**
  * @brief Function notifies certain events in DFU process.
  */
 static void dfu_observer(nrf_dfu_evt_type_t evt_type)
 {
-    switch (evt_type)
+    switch ( (int) evt_type)
     {
-        case NRF_DFU_EVT_DFU_FAILED:
-            board_microbit_init();
-            bsp_board_init(BSP_INIT_LEDS);
-            bsp_board_led_on(BSP_BOARD_LED_0);
-            bsp_board_led_on(BSP_BOARD_LED_1);
-            bsp_board_led_on(BSP_BOARD_LED_2);
-            break;
         case NRF_DFU_EVT_DFU_ABORTED:
-            board_microbit_init();
-            bsp_board_init(BSP_INIT_LEDS);
-            bsp_board_led_on(BSP_BOARD_LED_0);
-            bsp_board_led_on(BSP_BOARD_LED_1);
-            bsp_board_led_on(BSP_BOARD_LED_2);
+            // nrf_bootloader's dfu_observer does not pass this event on before resetting
+        case NRF_DFU_EVT_DFU_FAILED:
+            microbit_display_symbol( microbit_symbol_cross);
             break;
         case NRF_DFU_EVT_DFU_INITIALIZED:
-            board_microbit_init();
-            bsp_board_init(BSP_INIT_LEDS);
-            bsp_board_led_on(BSP_BOARD_LED_0);
-            bsp_board_led_on(BSP_BOARD_LED_1);
-            bsp_board_led_off(BSP_BOARD_LED_2);
+            // Occurs before softdevice is enabled
             break;
         case NRF_DFU_EVT_TRANSPORT_ACTIVATED:
-            bsp_board_led_off(BSP_BOARD_LED_1);
-            bsp_board_led_on(BSP_BOARD_LED_2);
+            // Client has connected
+            microbit_display_symbol( microbit_symbol_ble);
             break;
         case NRF_DFU_EVT_DFU_STARTED:
-            m_progress = 4;
-            bsp_board_leds_off();
-            bsp_board_led_on( m_progress);
+            microbit_progress_start();
+            break;
+        case NRF_DFU_EVT_DFU_ABORTED + 2:
+            // from ble_dfu_transport_init when entered DFU mode and started advertising
+            microbit_display_symbol( microbit_symbol_plus);
+            microbit_display_start();
+            //microbit_timer_init();
+            nrf_bootloader_user_timer_start( NRF_BOOTLOADER_MS_TO_TICKS(5), microbit_timer_callback);
+            break;
+        case NRF_DFU_EVT_DFU_ABORTED + 1:
+            // from on_data_obj_write_request
+            microbit_progress_next( nRF5SDK_mods_dfu_percent_complete());
             break;
         default:
-            break;
-    }
-    
-    switch ( (int)evt_type)
-    {
-        case NRF_DFU_EVT_DFU_ABORTED + 1:
-            if ( m_progress < 0 || m_progress >= 5)
-            {
-                bsp_board_leds_off();
-                m_progress = 0;
-            }
-            else
-            {
-                bsp_board_led_off(m_progress);
-                m_progress++;
-                if ( m_progress < 0 || m_progress >= 5)
-                    m_progress = 0;
-            }
-            bsp_board_led_on(m_progress);
             break;
     }
 }
@@ -183,6 +167,22 @@ int main(void)
 
     NRF_LOG_INFO("Inside main");
 
+//    microbit_display_symbol( microbit_symbol_plus);
+//    microbit_display_start();
+//    //microbit_timer_init();
+//    nrf_bootloader_user_timer_start( NRF_BOOTLOADER_MS_TO_TICKS(5), microbit_timer_callback);
+//    nrf_delay_ms(500);
+//    microbit_display_symbol( microbit_symbol_cross);
+//    nrf_delay_ms(500);
+//    microbit_display_symbol( microbit_symbol_ble);
+//    nrf_delay_ms(500);
+//    microbit_progress_start();
+//    for ( int i = 0; i <= 100; i++)
+//    {
+//        microbit_progress_next( i);
+//        nrf_delay_ms(50);
+//    }
+    
     ret_val = nrf_bootloader_init(dfu_observer);
     APP_ERROR_CHECK(ret_val);
 
