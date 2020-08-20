@@ -30,8 +30,6 @@ SOFTWARE.
 
 #include <stdlib.h>
 
-static int m_progress_x;
-static int m_progress_y;
 static int m_progress_max;
 
 
@@ -41,10 +39,27 @@ static void microbit_progress_togglePixel( int x, int y)
 }
 
 
+static void microbit_progress_toggleSpiral( int idx)
+{
+    int i;
+    int x = 0;
+    int y = 0;
+        
+    for ( i = 0; i < idx; i++)
+    {
+        if ( abs(x) <= abs(y) && ( x != y || x <= 0))
+            x += y <= 0 ? -1 : 1;
+        else
+            y += x <= 0 ? 1 : -1;
+    }
+    
+    microbit_progress_togglePixel( x, y);
+}
+
+
 void microbit_progress_start()
 {
-    m_progress_max = 1;
-    m_progress_x = m_progress_y = 0;
+    m_progress_max = 0;
     
     microbit_display_clear();
     microbit_progress_togglePixel( 0, 0);
@@ -56,19 +71,11 @@ void microbit_progress_next( int percent)
     int pixels = microbit_LEDMap.width * microbit_LEDMap.height;
     int imax = pixels * percent / 100;
     
-    microbit_display_togglePixel( 0, 0);
+    microbit_progress_togglePixel( 0, 0);
     
     while ( m_progress_max < imax)
     {
-        //microbit_progress_togglePixel( m_progress_x, m_progress_y);
-        
         m_progress_max++;
-        
-        if ( abs(m_progress_y) <= abs(m_progress_x) && ( m_progress_y != m_progress_x || m_progress_y <= 0))
-            m_progress_y += m_progress_x <= 0 ? -1 : 1;
-        else
-            m_progress_x += m_progress_y <= 0 ? 1 : -1;
-        
-        microbit_progress_togglePixel( m_progress_x, m_progress_y);
+        microbit_progress_toggleSpiral( pixels - m_progress_max);
     }
 }
