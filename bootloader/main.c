@@ -101,10 +101,41 @@ void app_error_handler_bare(uint32_t error_code)
 }
 
 
+#if microbit_config_PROGRESS_COLUMNS
+
+// 5 column proress display needs display update disabled
+
+bool microbit_timer_display = true;
+
+static void microbit_timer_callback(void)
+{
+    if ( microbit_timer_display)
+        microbit_display_update();
+}
+
+#define microbit_timer_display_stop() ( microbit_timer_display = false)
+
+void microbit_timer_display_restart()
+{
+    if ( !microbit_timer_display)
+    {
+      microbit_display_start();
+      microbit_timer_display = true;
+    }
+}
+
+#else //microbit_config_PROGRESS_COLUMNS
+
+
 static void microbit_timer_callback(void)
 {
     microbit_display_update();
 }
+
+#define microbit_timer_display_stop()    ((void)0)
+#define microbit_timer_display_restart() ((void)0)
+
+#endif //microbit_config_PROGRESS_COLUMNS
 
 
 /**
@@ -118,6 +149,7 @@ static void dfu_observer(nrf_dfu_evt_type_t evt_type)
             // nrf_bootloader's dfu_observer does not pass this event on before resetting
         case NRF_DFU_EVT_DFU_FAILED:
             microbit_display_symbol( microbit_symbol_cross);
+            microbit_timer_display_restart();
             break;
         case NRF_DFU_EVT_DFU_INITIALIZED:
             // Occurs before softdevice is enabled
@@ -127,6 +159,7 @@ static void dfu_observer(nrf_dfu_evt_type_t evt_type)
             microbit_display_symbol( microbit_symbol_ble);
             break;
         case NRF_DFU_EVT_DFU_STARTED:
+            microbit_timer_display_stop();
             microbit_progress_start();
             break;
         case NRF_DFU_EVT_DFU_ABORTED + 2:
@@ -176,13 +209,17 @@ int main(void)
 //    nrf_delay_ms(500);
 //    microbit_display_symbol( microbit_symbol_ble);
 //    nrf_delay_ms(500);
+//    microbit_timer_display_stop();
 //    microbit_progress_start();
 //    for ( int i = 0; i <= 100; i++)
 //    {
 //        microbit_progress_next( i);
-//        nrf_delay_ms(50);
+//        nrf_delay_ms(200);
 //    }
-    
+//    microbit_display_symbol( microbit_symbol_plus);
+//    microbit_timer_display_restart();
+//    nrf_delay_ms(500);
+
     ret_val = nrf_bootloader_init(dfu_observer);
     APP_ERROR_CHECK(ret_val);
 

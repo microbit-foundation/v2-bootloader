@@ -30,6 +30,37 @@ SOFTWARE.
 
 #include <stdlib.h>
 
+
+//================================================================
+#if microbit_config_PROGRESS_COLUMNS
+//================================================================
+
+
+void microbit_progress_start()
+{
+    microbit_LEDMap_configureHiDrive();
+    
+    for ( int col = 0; col < microbit_LEDMap.columns; col++)
+        microbit_LEDMap_columnOn( col, false);
+
+    for ( int row = 0; row < microbit_LEDMap.rows; row++)
+        microbit_LEDMap_rowOn( row);
+}
+
+
+void microbit_progress_next( int percent)
+{
+    int imax = 1 + ( microbit_LEDMap.columns - 1) * percent / 100;
+    
+    for ( int col = 0; col < imax; col++)
+        microbit_LEDMap_columnOn( col, true);
+}
+
+//================================================================
+#else // microbit_config_PROGRESS_COLUMNS
+//================================================================
+
+
 static int m_progress_max;
 
 
@@ -79,3 +110,7 @@ void microbit_progress_next( int percent)
         microbit_progress_toggleSpiral( pixels - m_progress_max);
     }
 }
+
+//================================================================
+#endif // microbit_config_PROGRESS_COLUMNS
+//================================================================
