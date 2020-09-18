@@ -27,6 +27,8 @@ SOFTWARE.
 
 #include "microbit_config.h"
 
+extern void microbit_progress_init();
+
 extern void microbit_progress_start();
 
 extern void microbit_progress_next( int percent);

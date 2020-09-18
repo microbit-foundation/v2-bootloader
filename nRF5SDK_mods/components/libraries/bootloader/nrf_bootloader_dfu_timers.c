@@ -282,7 +282,14 @@ uint32_t nrf_bootloader_dfu_timer_counter_get(void)
 void nrf_bootloader_user_timer_start(uint32_t                              timeout_ticks,
                                          nrf_bootloader_dfu_timeout_callback_t callback)
 {
+    timer_stop( mp_user);
     mp_user->repeated_timeout = timeout_ticks;
     timer_start( mp_user, timeout_ticks, callback);
 }
+
+void nrf_bootloader_user_timer_stop()
+{
+    timer_stop( mp_user);
+}
+
 #endif

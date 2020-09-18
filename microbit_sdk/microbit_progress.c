@@ -30,45 +30,46 @@ SOFTWARE.
 
 #include <stdlib.h>
 
-static int m_progress_x;
-static int m_progress_y;
-static int m_progress_max;
+static int m_progress_max = -1;
 
 
-static void microbit_progress_togglePixel( int x, int y)
+void microbit_progress_init()
 {
-    microbit_display_togglePixel( x + microbit_LEDMap.width / 2, y + microbit_LEDMap.height / 2);
+    m_progress_max = -1;
 }
 
 
 void microbit_progress_start()
 {
-    m_progress_max = 1;
-    m_progress_x = m_progress_y = 0;
+    m_progress_max = 0;
     
-    microbit_display_clear();
-    microbit_progress_togglePixel( 0, 0);
+    microbit_LEDMap_configureHiDrive();
+    
+    for ( int col = 0; col < microbit_LEDMap.columns; col++)
+        microbit_LEDMap_columnOff( col);
+
+    for ( int row = 0; row < microbit_LEDMap.rows; row++)
+        microbit_LEDMap_rowOn( row);
+    
+    microbit_LEDMap_columnToggle( m_progress_max);
 }
 
 
 void microbit_progress_next( int percent)
 {
-    int pixels = microbit_LEDMap.width * microbit_LEDMap.height;
-    int imax = pixels * percent / 100;
+    if ( m_progress_max < 0)
+        microbit_progress_start();
     
-    microbit_display_togglePixel( 0, 0);
+    int cmax = microbit_LEDMap.columns;
+    int pmax = cmax * percent / 100;
     
-    while ( m_progress_max < imax)
+    while ( m_progress_max < pmax)
     {
-        //microbit_progress_togglePixel( m_progress_x, m_progress_y);
-        
+        microbit_LEDMap_columnOn( m_progress_max, true);
         m_progress_max++;
-        
-        if ( abs(m_progress_y) <= abs(m_progress_x) && ( m_progress_y != m_progress_x || m_progress_y <= 0))
-            m_progress_y += m_progress_x <= 0 ? -1 : 1;
-        else
-            m_progress_x += m_progress_y <= 0 ? 1 : -1;
-        
-        microbit_progress_togglePixel( m_progress_x, m_progress_y);
     }
+    
+    if ( m_progress_max < cmax)
+      microbit_LEDMap_columnToggle( m_progress_max);
 }
+

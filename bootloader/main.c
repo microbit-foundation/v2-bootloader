@@ -101,9 +101,39 @@ void app_error_handler_bare(uint32_t error_code)
 }
 
 
+bool microbit_timer_display = false;
+
 static void microbit_timer_callback(void)
 {
-    microbit_display_update();
+    if ( microbit_timer_display)
+        microbit_display_update();
+}
+
+void microbit_timer_display_stop()
+{
+    if ( microbit_timer_display)
+    {
+      microbit_timer_display = false;
+      nrf_bootloader_user_timer_stop();
+    }
+}
+
+void microbit_timer_display_start()
+{
+    microbit_progress_init();
+    
+    if ( !microbit_timer_display)
+    {
+      microbit_display_start();
+      nrf_bootloader_user_timer_start( NRF_BOOTLOADER_MS_TO_TICKS(5), microbit_timer_callback);
+      microbit_timer_display = true;
+    }
+}
+
+void microbit_timer_display_symbol( const uint8_t *symbol)
+{
+    microbit_display_symbol( symbol);
+    microbit_timer_display_start();
 }
 
 
@@ -117,27 +147,30 @@ static void dfu_observer(nrf_dfu_evt_type_t evt_type)
         case NRF_DFU_EVT_DFU_ABORTED:
             // nrf_bootloader's dfu_observer does not pass this event on before resetting
         case NRF_DFU_EVT_DFU_FAILED:
-            microbit_display_symbol( microbit_symbol_cross);
+            microbit_timer_display_symbol( microbit_symbol_cross);
             break;
         case NRF_DFU_EVT_DFU_INITIALIZED:
             // Occurs before softdevice is enabled
             break;
         case NRF_DFU_EVT_TRANSPORT_ACTIVATED:
             // Client has connected
-            microbit_display_symbol( microbit_symbol_ble);
+            microbit_timer_display_symbol( microbit_symbol_ble);
+            break;
+        case NRF_DFU_EVT_TRANSPORT_DEACTIVATED:
+            // Client has disconnected
+            microbit_timer_display_symbol( microbit_symbol_plus);
             break;
         case NRF_DFU_EVT_DFU_STARTED:
+            microbit_timer_display_stop();
             microbit_progress_start();
             break;
         case NRF_DFU_EVT_DFU_ABORTED + 2:
             // from ble_dfu_transport_init when entered DFU mode and started advertising
-            microbit_display_symbol( microbit_symbol_plus);
-            microbit_display_start();
-            //microbit_timer_init();
-            nrf_bootloader_user_timer_start( NRF_BOOTLOADER_MS_TO_TICKS(5), microbit_timer_callback);
+            microbit_timer_display_symbol( microbit_symbol_plus);
             break;
         case NRF_DFU_EVT_DFU_ABORTED + 1:
             // from on_data_obj_write_request
+            microbit_timer_display_stop();
             microbit_progress_next( nRF5SDK_mods_dfu_percent_complete());
             break;
         default:
@@ -167,22 +200,24 @@ int main(void)
 
     NRF_LOG_INFO("Inside main");
 
-//    microbit_display_symbol( microbit_symbol_plus);
-//    microbit_display_start();
-//    //microbit_timer_init();
-//    nrf_bootloader_user_timer_start( NRF_BOOTLOADER_MS_TO_TICKS(5), microbit_timer_callback);
+//    microbit_timer_display_symbol( microbit_symbol_plus);
 //    nrf_delay_ms(500);
-//    microbit_display_symbol( microbit_symbol_cross);
+//    microbit_timer_display_symbol( microbit_symbol_cross);
 //    nrf_delay_ms(500);
-//    microbit_display_symbol( microbit_symbol_ble);
+//    microbit_timer_display_symbol( microbit_symbol_ble);
 //    nrf_delay_ms(500);
-//    microbit_progress_start();
-//    for ( int i = 0; i <= 100; i++)
+//    microbit_timer_display_stop();
+//    for ( int i = 0; i <= 400; i++)
 //    {
-//        microbit_progress_next( i);
-//        nrf_delay_ms(50);
+//        microbit_progress_next( i / 4);
+//        nrf_delay_ms( 20 + 10 * ( i % 4));
 //    }
-    
+//    microbit_timer_display_symbol( microbit_symbol_plus);
+//    nrf_delay_ms(1000);
+//    microbit_display_clear();
+//    nrf_delay_ms(500);
+//    microbit_timer_display_stop();
+
     ret_val = nrf_bootloader_init(dfu_observer);
     APP_ERROR_CHECK(ret_val);
 
