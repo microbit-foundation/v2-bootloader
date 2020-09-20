@@ -107,6 +107,7 @@ uint32_t nrf_bootloader_dfu_timer_counter_get(void);
 
 #if nRF5SDK_mods_USER_TIMER
 void nrf_bootloader_user_timer_start( uint32_t timeout_ticks, nrf_bootloader_dfu_timeout_callback_t callback);
+void nrf_bootloader_user_timer_stop();
 #endif
 
 #ifdef __cplusplus
