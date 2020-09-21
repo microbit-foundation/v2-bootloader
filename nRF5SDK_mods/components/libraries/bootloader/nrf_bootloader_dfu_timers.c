@@ -279,10 +279,29 @@ uint32_t nrf_bootloader_dfu_timer_counter_get(void)
 
 
 #if nRF5SDK_mods_USER_TIMER
-void nrf_bootloader_user_timer_start(uint32_t                              timeout_ticks,
-                                         nrf_bootloader_dfu_timeout_callback_t callback)
+
+
+static bool timer_enabled(dfu_timer_t * p_timer)
 {
-    mp_user->repeated_timeout = timeout_ticks;
-    timer_start( mp_user, timeout_ticks, callback);
+    return nrf_rtc_int_is_enabled(RTC_STRUCT, RTC_CHANNEL_INT_MASK(p_timer->cc_channel));
 }
+
+
+void nrf_bootloader_user_timer_start(uint32_t                              timeout_ticks,
+                                     nrf_bootloader_dfu_timeout_callback_t callback)
+{
+    if ( !timer_enabled(mp_user) || mp_user->repeated_timeout != timeout_ticks)
+    {
+      timer_stop( mp_user);
+      mp_user->repeated_timeout = timeout_ticks;
+      timer_start( mp_user, timeout_ticks, callback);
+    }
+}
+
+
+void nrf_bootloader_user_timer_stop(void)
+{
+    timer_stop( mp_user);
+}
+
 #endif

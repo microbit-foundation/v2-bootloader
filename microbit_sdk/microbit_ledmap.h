@@ -145,6 +145,7 @@ static inline void microbit_LEDMap_rowOff(       int row)           { nrf_gpio_p
 
 static inline void microbit_LEDMap_columnOn(     int col, bool on)  { nrf_gpio_pin_write( microbit_LEDMap.columnPins[ col], on ? 0 : 1); }
 static inline void microbit_LEDMap_columnOff(    int col)           { nrf_gpio_pin_set(   microbit_LEDMap.columnPins[ col]); }
+static inline void microbit_LEDMap_columnToggle( int col)           { nrf_gpio_pin_write( microbit_LEDMap.columnPins[ col], nrf_gpio_pin_out_read( microbit_LEDMap.columnPins[ col]) ? 0 : 1); }
 
 static inline void microbit_LEDMap_pinOutput(    uint8_t pin)       { nrf_gpio_cfg_output( pin); }
 static inline void microbit_LEDMap_pinOutputHiDrive( uint8_t pin)   { nrf_gpio_cfg( pin, NRF_GPIO_PIN_DIR_OUTPUT, NRF_GPIO_PIN_INPUT_DISCONNECT,

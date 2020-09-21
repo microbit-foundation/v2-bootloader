@@ -29,6 +29,6 @@ SOFTWARE.
 
 extern void microbit_progress_start();
 
-extern void microbit_progress_next( int percent);
+extern void microbit_progress_next( int percent, bool toggle);
 
 #endif // microbit_progress_H
