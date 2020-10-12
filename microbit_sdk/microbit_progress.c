@@ -24,7 +24,7 @@ SOFTWARE.
 */
 
 #include "microbit_config.h"
-#include "microbit_LEDMap.h"
+#include "microbit_ledmap.h"
 #include "microbit_display.h"
 #include "microbit_progress.h"
 
