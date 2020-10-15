@@ -2,6 +2,10 @@
 **/armgcc/_build/
 **/armgcc/bootloader.bin
 **/armgcc/bootloader.o
+**/armgcc/bootloader_s113.bin
+**/armgcc/bootloader_s113.o
+**/armgcc/bootloader_s140.bin
+**/armgcc/bootloader_s140.o
 **/ses/Output/
 *.emSession
 *.jlink
