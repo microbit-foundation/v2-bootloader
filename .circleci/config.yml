@@ -1,0 +1,35 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Prepare directory
+          command: |
+            mkdir artifacts
+            ls
+      - run:
+          name: Build image from Dockerfile
+          command: |
+            docker build --build-arg PAT_ARG=${PAT} -t "ubit-bootloader-img" . 2>&1 | tee artifacts/docker_build_op.txt
+      - run:
+          name: Save container artefacts
+          command: |
+            docker run --name ubit-bootloader-container ubit-bootloader-img
+            docker cp ubit-bootloader-container:/home/artifacts .
+      - run:
+          name: Save docker image
+          command: |
+            docker save ubit-bootloader-img > ubit-bootloader-img.tar
+            gzip -c ubit-bootloader-img.tar > ubit-bootloader-img.tar.gz
+            mv ubit-bootloader-img.tar.gz artifacts/ubit-bootloader-img.tar.gz
+      - store_artifacts:
+          path: artifacts
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+
