@@ -15,27 +15,27 @@
       arm_simulator_memory_simulation_parameter="RWX 00000000,00100000,FFFFFFFF;RWX 20000000,00010000,CDCDCDCD"
       arm_target_device_name="nRF52833_xxAA"
       arm_target_interface_type="SWD"
-      c_user_include_directories="../config;../../../nRF5SDK/components/ble/common;../../../nRF5SDK/components/boards;../../../nRF5SDK/components/libraries/atomic;../../../nRF5SDK/components/libraries/atomic_fifo;../../../nRF5SDK/components/libraries/balloc;../../../nRF5SDK/components/libraries/bootloader;../../../nRF5SDK/components/libraries/bootloader/ble_dfu;../../../nRF5SDK/components/libraries/bootloader/dfu;../../../nRF5SDK/components/libraries/crc32;../../../nRF5SDK/components/libraries/crypto;../../../nRF5SDK/components/libraries/crypto/backend/cc310;../../../nRF5SDK/components/libraries/crypto/backend/cc310_bl;../../../nRF5SDK/components/libraries/crypto/backend/cifra;../../../nRF5SDK/components/libraries/crypto/backend/mbedtls;../../../nRF5SDK/components/libraries/crypto/backend/micro_ecc;../../../nRF5SDK/components/libraries/crypto/backend/nrf_hw;../../../nRF5SDK/components/libraries/crypto/backend/nrf_sw;../../../nRF5SDK/components/libraries/crypto/backend/oberon;../../../nRF5SDK/components/libraries/crypto/backend/optiga;../../../nRF5SDK/components/libraries/delay;../../../nRF5SDK/components/libraries/experimental_section_vars;../../../nRF5SDK/components/libraries/fstorage;../../../nRF5SDK/components/libraries/log;../../../nRF5SDK/components/libraries/log/src;../../../nRF5SDK/components/libraries/mem_manager;../../../nRF5SDK/components/libraries/memobj;../../../nRF5SDK/components/libraries/queue;../../../nRF5SDK/components/libraries/ringbuf;../../../nRF5SDK/components/libraries/scheduler;../../../nRF5SDK/components/libraries/sha256;../../../nRF5SDK/components/libraries/stack_info;../../../nRF5SDK/components/libraries/strerror;../../../nRF5SDK/components/libraries/svc;../../../nRF5SDK/components/libraries/util;../../../nRF5SDK/components/softdevice/common;../../../nRF5SDK/components/softdevice/s140/headers;../../../nRF5SDK/components/softdevice/s140/headers/nrf52;../../../nRF5SDK/components/toolchain/cmsis/include;../..;../../../nRF5SDK/external/micro-ecc/micro-ecc;../../../nRF5SDK/external/nano-pb;../../../nRF5SDK/external/nrf_oberon;../../../nRF5SDK/external/nrf_oberon/include;../../../nRF5SDK/integration/nrfx;../../../nRF5SDK/modules/nrfx;../../../nRF5SDK/modules/nrfx/hal;../../../nRF5SDK/modules/nrfx/mdk;"
       c_preprocessor_definitions="BLE_STACK_SUPPORT_REQD;CUSTOM_BOARD_INC=board_microbit;CONFIG_GPIO_AS_PINRESET;FLOAT_ABI_HARD;INITIALIZE_USER_SECTIONS;NO_VTOR_CONFIG;NRF52833_XXAA;NRF_DFU_SETTINGS_VERSION=2;NRF_DFU_SVCI_ENABLED;NRF_SD_BLE_API_VERSION=7;S140;SOFTDEVICE_PRESENT;SVC_INTERFACE_CALL_AS_NORMAL_FUNCTION;uECC_ENABLE_VLI_API=0;uECC_OPTIMIZATION_LEVEL=3;uECC_SQUARE_FUNC=0;uECC_SUPPORT_COMPRESSED_POINT=0;uECC_VLI_NATIVE_LITTLE_ENDIAN=1;"
-      debug_target_connection="J-Link"
-      gcc_entry_point="Reset_Handler"
-      macros="CMSIS_CONFIG_TOOL=../../../nRF5SDK/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar"
-      debug_register_definition_file="../../../nRF5SDK/modules/nrfx/mdk/nrf52833.svd"
+      c_user_include_directories="../config;../../../nRF5SDK/components/ble/common;../../../nRF5SDK/components/boards;../../../nRF5SDK/components/libraries/atomic;../../../nRF5SDK/components/libraries/atomic_fifo;../../../nRF5SDK/components/libraries/balloc;../../../nRF5SDK/components/libraries/bootloader;../../../nRF5SDK/components/libraries/bootloader/ble_dfu;../../../nRF5SDK/components/libraries/bootloader/dfu;../../../nRF5SDK/components/libraries/crc32;../../../nRF5SDK/components/libraries/crypto;../../../nRF5SDK/components/libraries/crypto/backend/cc310;../../../nRF5SDK/components/libraries/crypto/backend/cc310_bl;../../../nRF5SDK/components/libraries/crypto/backend/cifra;../../../nRF5SDK/components/libraries/crypto/backend/mbedtls;../../../nRF5SDK/components/libraries/crypto/backend/micro_ecc;../../../nRF5SDK/components/libraries/crypto/backend/nrf_hw;../../../nRF5SDK/components/libraries/crypto/backend/nrf_sw;../../../nRF5SDK/components/libraries/crypto/backend/oberon;../../../nRF5SDK/components/libraries/crypto/backend/optiga;../../../nRF5SDK/components/libraries/delay;../../../nRF5SDK/components/libraries/experimental_section_vars;../../../nRF5SDK/components/libraries/fstorage;../../../nRF5SDK/components/libraries/log;../../../nRF5SDK/components/libraries/log/src;../../../nRF5SDK/components/libraries/mem_manager;../../../nRF5SDK/components/libraries/memobj;../../../nRF5SDK/components/libraries/queue;../../../nRF5SDK/components/libraries/ringbuf;../../../nRF5SDK/components/libraries/scheduler;../../../nRF5SDK/components/libraries/sha256;../../../nRF5SDK/components/libraries/stack_info;../../../nRF5SDK/components/libraries/strerror;../../../nRF5SDK/components/libraries/svc;../../../nRF5SDK/components/libraries/util;../../../nRF5SDK/components/softdevice/common;../../../nRF5SDK/components/softdevice/s140/headers;../../../nRF5SDK/components/softdevice/s140/headers/nrf52;../../../nRF5SDK/components/toolchain/cmsis/include;../..;../../../nRF5SDK/external/micro-ecc/micro-ecc;../../../nRF5SDK/external/nano-pb;../../../nRF5SDK/external/nrf_oberon;../../../nRF5SDK/external/nrf_oberon/include;../../../nRF5SDK/integration/nrfx;../../../nRF5SDK/modules/nrfx;../../../nRF5SDK/modules/nrfx/hal;../../../nRF5SDK/modules/nrfx/mdk;../../../nRF5SDK_mods;../../../microbit_sdk"
       debug_additional_load_file="../../../nRF5SDK/components/softdevice/s140/hex/s140_nrf52_7.0.1_softdevice.hex"
+      debug_register_definition_file="../../../nRF5SDK/modules/nrfx/mdk/nrf52833.svd"
       debug_start_from_entry_point_symbol="No"
-      gcc_debugging_level="Level 3"      linker_output_format="hex"
-      linker_printf_width_precision_supported="Yes"
+      debug_target_connection="J-Link"
+      gcc_debugging_level="Level 3"
+      gcc_entry_point="Reset_Handler"
+      linker_output_format="hex"
       linker_printf_fmt_level="long"
+      linker_printf_width_precision_supported="Yes"
       linker_scanf_fmt_level="long"
       linker_section_placement_file="flash_placement.xml"
-      linker_section_placement_macros="FLASH_PH_START=0x0;FLASH_PH_SIZE=0x80000;RAM_PH_START=0x20000000;RAM_PH_SIZE=0x20000;FLASH_START=0x72000;FLASH_SIZE=0xc000;RAM_START=0x20002ae8;RAM_SIZE=0x1d518"
-      
+      linker_section_placement_macros="FLASH_PH_START=0x0;FLASH_PH_SIZE=0x80000;RAM_PH_START=0x20000000;RAM_PH_SIZE=0x20000;FLASH_START=0x77000;FLASH_SIZE=0x7E000-0x77000;RAM_START=0x20002ae8;RAM_SIZE=0x1d518"
       linker_section_placements_segments="FLASH RX 0x0 0x80000;RAM RWX 0x20000000 0x20000;uicr_bootloader_start_address RX 0x10001014 0x4;bootloader_settings_page RX 0x0007F000 0x1000;uicr_mbr_params_page RX 0x10001018 0x4;mbr_params_page RX 0x0007E000 0x1000"
+      macros="CMSIS_CONFIG_TOOL=../../../nRF5SDK/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar"
       project_directory=""
       project_type="Executable" />
-      <folder Name="Segger Startup Files">
-        <file file_name="$(StudioDir)/source/thumb_crt0.s" />
-      </folder>
+    <folder Name="Segger Startup Files">
+      <file file_name="$(StudioDir)/source/thumb_crt0.s" />
+    </folder>
     <folder Name="nRF_Libraries">
       <file file_name="../../../nRF5SDK/components/libraries/util/app_error_weak.c" />
       <file file_name="../../../nRF5SDK/components/libraries/scheduler/app_scheduler.c" />
@@ -85,7 +85,6 @@
       <file file_name="../../dfu_public_key.c" />
       <file file_name="../../main.c" />
       <file file_name="../config/sdk_config.h" />
-      <file file_name="../../board_microbit.c" />
       <file file_name="../../board_microbit.h" />
     </folder>
     <folder Name="nRF_micro-ecc">
@@ -98,7 +97,7 @@
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/nrf_bootloader.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/nrf_bootloader_app_start.c" />
       <file file_name="../../../nRF5SDK_mods/components/libraries/bootloader/nrf_bootloader_app_start_final.c" />
-      <file file_name="../../../nRF5SDK/components/libraries/bootloader/nrf_bootloader_dfu_timers.c" />
+      <file file_name="../../../nRF5SDK_mods/components/libraries/bootloader/nrf_bootloader_dfu_timers.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/nrf_bootloader_fw_activation.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/nrf_bootloader_info.c" />
       <file file_name="../../../nRF5SDK/components/libraries/bootloader/nrf_bootloader_wdt.c" />
@@ -145,9 +144,16 @@
       <file file_name="../../../nRF5SDK/components/libraries/crypto/backend/oberon/oberon_backend_hash.c" />
       <file file_name="../../../nRF5SDK/components/libraries/crypto/backend/oberon/oberon_backend_hmac.c" />
     </folder>
+    <folder Name="microbit_sdk">
+      <file file_name="../../../microbit_sdk/microbit_display.c" />
+      <file file_name="../../../microbit_sdk/microbit_font.c" />
+      <file file_name="../../../microbit_sdk/microbit_panic.c" />
+      <file file_name="../../../microbit_sdk/microbit_progress.c" />
+      <file file_name="../../../microbit_sdk/microbit_symbol.c" />
+    </folder>
   </project>
-  <configuration Name="Release"
+  <configuration
+    Name="Release"
     c_preprocessor_definitions="NDEBUG"
     gcc_optimization_level="Optimize For Size" />
-
 </solution>

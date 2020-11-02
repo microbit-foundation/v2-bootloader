@@ -1,5 +1,5 @@
 PROJECT_NAME     := microbit_bootloader
-TARGETS          := nrf52833_xxaa_s113 nrf52833_xxaa_s113_object
+TARGETS          := nrf52833_xxaa_s140 nrf52833_xxaa_s140_object
 OUTPUT_DIRECTORY := _build
 
 SDK_ROOT := ../../../nRF5SDK
@@ -7,10 +7,10 @@ MOD_ROOT := ../../../nRF5SDK_mods
 MSDK_ROOT := ../../../microbit_sdk
 PROJ_DIR := ../..
 
-$(OUTPUT_DIRECTORY)/nrf52833_xxaa_s113.out: \
+$(OUTPUT_DIRECTORY)/nrf52833_xxaa_s140.out: \
   LINKER_SCRIPT  := secure_bootloader_gcc_nrf52.ld
 
-$(OUTPUT_DIRECTORY)/nrf52833_xxaa_s113_object.out: \
+$(OUTPUT_DIRECTORY)/nrf52833_xxaa_s140_object.out: \
   LINKER_SCRIPT  := secure_bootloader_gcc_nrf52_object.ld
 
 # Source files common to all targets
@@ -118,11 +118,11 @@ INC_FOLDERS += \
   $(SDK_ROOT)/external/nrf_oberon \
   $(SDK_ROOT)/components/libraries/strerror \
   $(SDK_ROOT)/components/libraries/crypto/backend/mbedtls \
-  $(SDK_ROOT)/components/softdevice/s113/headers/nrf52 \
+  $(SDK_ROOT)/components/softdevice/s140/headers/nrf52 \
   $(SDK_ROOT)/components/boards \
   $(SDK_ROOT)/components/libraries/crypto/backend/cc310 \
   $(SDK_ROOT)/components/libraries/bootloader \
-  $(SDK_ROOT)/components/softdevice/s113/headers \
+  $(SDK_ROOT)/components/softdevice/s140/headers \
   $(SDK_ROOT)/components/libraries/crypto \
   ../config \
   $(SDK_ROOT)/components/libraries/crypto/backend/optiga \
@@ -161,7 +161,7 @@ CFLAGS += -DNRF52833_XXAA
 CFLAGS += -DNRF_DFU_SETTINGS_VERSION=2
 CFLAGS += -DNRF_DFU_SVCI_ENABLED
 CFLAGS += -DNRF_SD_BLE_API_VERSION=7
-CFLAGS += -DS113
+CFLAGS += -DS140
 CFLAGS += -DSOFTDEVICE_PRESENT
 CFLAGS += -DSVC_INTERFACE_CALL_AS_NORMAL_FUNCTION
 CFLAGS += -DuECC_ENABLE_VLI_API=0
@@ -192,7 +192,7 @@ ASMFLAGS += -DNRF52833_XXAA
 ASMFLAGS += -DNRF_DFU_SETTINGS_VERSION=2
 ASMFLAGS += -DNRF_DFU_SVCI_ENABLED
 ASMFLAGS += -DNRF_SD_BLE_API_VERSION=7
-ASMFLAGS += -DS113
+ASMFLAGS += -DS140
 ASMFLAGS += -DSOFTDEVICE_PRESENT
 ASMFLAGS += -DSVC_INTERFACE_CALL_AS_NORMAL_FUNCTION
 ASMFLAGS += -DuECC_ENABLE_VLI_API=0
@@ -211,10 +211,10 @@ LDFLAGS += -Wl,--gc-sections
 # use newlib in nano version
 LDFLAGS += --specs=nano.specs
 
-nrf52833_xxaa_s113: CFLAGS += -D__HEAP_SIZE=0
-nrf52833_xxaa_s113: CFLAGS += -D__STACK_SIZE=2048
-nrf52833_xxaa_s113: ASMFLAGS += -D__HEAP_SIZE=0
-nrf52833_xxaa_s113: ASMFLAGS += -D__STACK_SIZE=2048
+nrf52833_xxaa_s140: CFLAGS += -D__HEAP_SIZE=0
+nrf52833_xxaa_s140: CFLAGS += -D__STACK_SIZE=2048
+nrf52833_xxaa_s140: ASMFLAGS += -D__HEAP_SIZE=0
+nrf52833_xxaa_s140: ASMFLAGS += -D__STACK_SIZE=2048
 
 # Add standard libraries at the very end of the linker input, after all objects
 # that may need symbols provided by these libraries.
@@ -224,12 +224,12 @@ LIB_FILES += -lc -lnosys -lm
 .PHONY: default help
 
 # Default target - first one defined
-default: nrf52833_xxaa_s113
+default: nrf52833_xxaa_s140
 
 # Print all targets that can be built
 help:
 	@echo following targets are available:
-	@echo		nrf52833_xxaa_s113
+	@echo		nrf52833_xxaa_s140
 	@echo		flash_softdevice
 	@echo		sdk_config - starting external tool for editing sdk_config.h
 	@echo		flash      - flashing binary
@@ -246,14 +246,14 @@ $(foreach target, $(TARGETS), $(call define_target, $(target)))
 
 # Flash the program
 flash: default
-	@echo Flashing: $(OUTPUT_DIRECTORY)/nrf52833_xxaa_s113.hex
-	nrfjprog -f nrf52 --program $(OUTPUT_DIRECTORY)/nrf52833_xxaa_s113.hex --sectorerase
+	@echo Flashing: $(OUTPUT_DIRECTORY)/nrf52833_xxaa_s140.hex
+	nrfjprog -f nrf52 --program $(OUTPUT_DIRECTORY)/nrf52833_xxaa_s140.hex --sectorerase
 	nrfjprog -f nrf52 --reset
 
 # Flash softdevice
 flash_softdevice:
-	@echo Flashing: s113_nrf52_7.0.1_softdevice.hex
-	nrfjprog -f nrf52 --program $(SDK_ROOT)/components/softdevice/s113/hex/s113_nrf52_7.0.1_softdevice.hex --sectorerase
+	@echo Flashing: s140_nrf52_7.0.1_softdevice.hex
+	nrfjprog -f nrf52 --program $(SDK_ROOT)/components/softdevice/s140/hex/s140_nrf52_7.0.1_softdevice.hex --sectorerase
 	nrfjprog -f nrf52 --reset
 
 erase:
@@ -264,7 +264,8 @@ CMSIS_CONFIG_TOOL := $(SDK_ROOT)/external_tools/cmsisconfig/CMSIS_Configuration_
 sdk_config:
 	java -jar $(CMSIS_CONFIG_TOOL) $(SDK_CONFIG_FILE)
 
-bob: nrf52833_xxaa_s113_object
-	@echo Making bootloader_s113.o
-	arm-none-eabi-objcopy -I ihex --output-target=binary $(OUTPUT_DIRECTORY)/nrf52833_xxaa_s113_object.hex bootloader_s113.bin
-	arm-none-eabi-objcopy --rename-section .data=.bootloader -I binary -O elf32-littlearm -B arm bootloader_s113.bin bootloader_s113.o
+bob: nrf52833_xxaa_s140_object
+	@echo Making bootloader_s140.o
+	arm-none-eabi-objcopy -I ihex --output-target=binary $(OUTPUT_DIRECTORY)/nrf52833_xxaa_s140_object.hex bootloader_s140.bin
+	arm-none-eabi-objcopy --rename-section .data=.bootloader -I binary -O elf32-littlearm -B arm bootloader_s140.bin bootloader_s140.o
+
