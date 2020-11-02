@@ -43,4 +43,4 @@ make -C nRF5SDK/external/micro-ecc/nrf52hf_armgcc/armgcc
 # Build bootloader
 make -C bootloader/microbit/armgcc bob
 
-cp bootloader/microbit/armgcc/bootloader.o artifacts/bootloader.o
+cp bootloader/microbit/armgcc/bootloader_s113.o artifacts/bootloader.o
