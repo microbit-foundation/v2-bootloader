@@ -103,3 +103,64 @@ This is a bash script. Double click it or copy the nrfutil command out of it. <b
 Uses "nrfutil settings generate" to make a bootloader settings page hex for the application.hex. <br />
 Uses "mergehex" to merge the softdevice, application, bootloader and settings page. <br />
 
+## Enabling logging in the bootloader
+
+git patch:
+
+```
+diff --git bootloader/main.c bootloader/main.c
+index fa4cf3b..71c6dd6 100755
+--- bootloader/main.c
++++ bootloader/main.c
+@@ -46,6 +46,11 @@
+  *
+  */
+ 
++#define NRF_LOG_ENABLED 1
++#define NRF_LOG_STR_FORMATTER_TIMESTAMP_FORMAT_ENABLED 0 
++#define NRF_LOG_DEFAULT_LEVEL 1
++
++
+ #include <stdint.h>
+ #include "nrf_mbr.h"
+ #include "nrf_bootloader.h"
+diff --git bootloader/microbit/armgcc/Makefile bootloader/microbit/armgcc/Makefile
+index fae7c00..4a6e1d5 100755
+--- bootloader/microbit/armgcc/Makefile
++++ bootloader/microbit/armgcc/Makefile
+@@ -87,6 +87,13 @@ SRC_FILES += \
+   $(SDK_ROOT)/components/libraries/crypto/backend/oberon/oberon_backend_eddsa.c \
+   $(SDK_ROOT)/components/libraries/crypto/backend/oberon/oberon_backend_hash.c \
+   $(SDK_ROOT)/components/libraries/crypto/backend/oberon/oberon_backend_hmac.c \
++  $(SDK_ROOT)/components/libraries/log/src/nrf_log_backend_flash.c \
++  $(SDK_ROOT)/components/libraries/log/src/nrf_log_backend_rtt.c \
++  $(SDK_ROOT)/components/libraries/log/src/nrf_log_backend_serial.c \
++  $(SDK_ROOT)/components/libraries/log/src/nrf_log_backend_uart.c \
++  $(SDK_ROOT)/components/libraries/log/src/nrf_log_default_backends.c \
++  $(SDK_ROOT)/components/libraries/log/src/nrf_log_frontend.c \
++  $(SDK_ROOT)/components/libraries/memobj/nrf_memobj.c \
+ 
+ # Include folders common to all targets
+ INC_FOLDERS += \
+@@ -140,6 +147,7 @@ INC_FOLDERS += \
+   $(SDK_ROOT)/external/nano-pb \
+   $(SDK_ROOT)/components/libraries/queue \
+   $(SDK_ROOT)/components/libraries/ringbuf \
++  $(SDK_ROOT)/external/fprintf/ \
+ 
+ # Libraries common to all targets
+ LIB_FILES += \
+diff --git bootloader/microbit/config/sdk_config.h bootloader/microbit/config/sdk_config.h
+index 3519dac..b119319 100755
+--- bootloader/microbit/config/sdk_config.h
++++ bootloader/microbit/config/sdk_config.h
+@@ -1701,7 +1701,7 @@
+ // <e> NRF_LOG_ENABLED - nrf_log - Logger
+ //==========================================================
+ #ifndef NRF_LOG_ENABLED
+-#define NRF_LOG_ENABLED 0
++#define NRF_LOG_ENABLED 1
+ #endif
+ // <h> Log message pool - Configuration of log message pool
+ 
+```
