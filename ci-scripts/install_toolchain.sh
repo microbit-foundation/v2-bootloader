@@ -48,5 +48,5 @@ cp bootloader/microbit/armgcc/bootloader_s113.o artifacts/bootloader.o
 # Store versions
 dpkg -l | grep arm > artifacts/versions.txt
 ls -la bootloader/microbit/armgcc/_build > artifacts/_build.txt
-cat bootloader/microbit/armgcc/_build/nrf52833_xxaa_s113.map > artifacts/nrf52833_xxaa_s113.map
+cat bootloader/microbit/armgcc/_build/nrf52833_xxaa_s113_object.map > artifacts/nrf52833_xxaa_s113_object.map
 
