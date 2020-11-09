@@ -147,7 +147,7 @@ LIB_FILES += \
   $(SDK_ROOT)/external/micro-ecc/nrf52hf_armgcc/armgcc/micro_ecc_lib_nrf52.a \
 
 # Optimization flags
-OPT = -Os -g3
+OPT = -Os
 # Uncomment the line below to enable link time optimization
 #OPT += -flto
 
