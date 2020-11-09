@@ -11,6 +11,7 @@ apt-get install -y curl
 apt-get install -y unzip
 
 pretty_echo "Installing GCC ARM compiler version .."
+apt-get install -y binutils-arm-none-eabi=2.33*
 apt-get install -y gcc-arm-none-eabi=15:9-2019-q4-0ubuntu1
 
 pretty_echo "Clean up a bit to reduce image size"
