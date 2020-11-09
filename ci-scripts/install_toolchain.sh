@@ -11,7 +11,7 @@ apt-get install -y curl
 apt-get install -y unzip
 
 pretty_echo "Installing GCC ARM compiler version .."
-apt-get install -y gcc-arm-none-eabi
+apt-get install -y gcc-arm-none-eabi=
 
 pretty_echo "Clean up a bit to reduce image size"
 apt-get clean
@@ -44,3 +44,5 @@ make -C nRF5SDK/external/micro-ecc/nrf52hf_armgcc/armgcc
 make -C bootloader/microbit/armgcc bob
 
 cp bootloader/microbit/armgcc/bootloader_s113.o artifacts/bootloader.o
+
+dpkg -l | grep arm > artifacts/versions.txt
