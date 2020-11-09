@@ -147,7 +147,7 @@ LIB_FILES += \
   $(SDK_ROOT)/external/micro-ecc/nrf52hf_armgcc/armgcc/micro_ecc_lib_nrf52.a \
 
 # Optimization flags
-OPT = -Os
+OPT = -Os 
 # Uncomment the line below to enable link time optimization
 #OPT += -flto
 
@@ -180,7 +180,7 @@ CFLAGS += -fno-builtin -fshort-enums
 # C++ flags common to all targets
 CXXFLAGS += $(OPT)
 # Assembler flags common to all targets
-ASMFLAGS += -g3
+# ASMFLAGS += -g3 Remove debug optimisations
 ASMFLAGS += -mcpu=cortex-m4
 ASMFLAGS += -mthumb -mabi=aapcs
 ASMFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
