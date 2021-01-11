@@ -1,4 +1,27 @@
-# boot-test
+# micro:bit v2 bootloader
+
+This repository contains the code required to compile the bootloader for micro:bit v2. This description is taken from the Nordic infocenter:
+
+```
+
+Bootloader
+
+The bootloader module is responsible for:
+
+    booting into an application,
+    activating new firmware,
+    optionally, entering DFU mode where DFU transports are activated and new firmware can be delivered,
+    feeding the watchdog timer.
+
+Each bootloader example provided in this SDK contains one DFU transport.
+
+```
+
+The source of the bootloader can be found in `./bootloader`, a simple SDK to interact with the micro:bit's peripherals can be found in `./microbit_sdk`, and modifications to the nRF5SDK can be found in `./nRF5SDK_mods`.
+
+The mods are required to add a custom init packet, skip write protection, and display DFU progress on the LEDs.
+
+# Buiding this repo
 
 There should be these folders here: <br />
 

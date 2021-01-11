@@ -8,23 +8,23 @@ Licensing
     [ ] TODO: Should we list here some tools that could be used to traverse the dependency licenses. Do we need to do that?
     [ ] TODO: What does this really mean? Can an MIT project depend on a GPL one, or does it need to be MIT all-the-way down? Is there a difference between releasing the library on GH and releasing a tool built with it?
 CI
-[ ] CI scripts do not contain any passwords or secrets
-[ ] CI SaaS project does not contain any env var that could leak
-    [ ] If there are env vars, the CI project is configured to not trust forks and PRs
-[ ] CI SaaS global settings do not contain any env var or secret shared to this project that could leak
+[x] CI scripts do not contain any passwords or secrets
+[x] CI SaaS project does not contain any env var that could leak
+    [x] If there are env vars, the CI project is configured to not trust forks and PRs
+[x] CI SaaS global settings do not contain any env var or secret shared to this project that could leak
 GitHub
-[ ] The project has a descriptive README.md file rendered on the GitHub repo entry page
-[ ] The GH description (underneath the repo title) is clear and concise
-[ ] (Optional) If appropriate, there is a link to a relevant website next to the GH description
-[ ] (Optional) Add topics to the repository 
+[x] The project has a descriptive README.md file rendered on the GitHub repo entry page
+[x] The GH description (underneath the repo title) is clear and concise
+[x] (Optional) If appropriate, there is a link to a relevant website next to the GH description
+[x] (Optional) Add topics to the repository 
 [ ] GitHub Releases are used to mark releases
 [ ] GitHub correctly interprets and lists the Licence file, if using a GitHub supported licence
 Project
 [ ] There is a LICENSE file including SPDX licence identifier https://spdx.org/licenses/
-[ ] There is a appropriate documentation
+[x] There is a appropriate documentation
 [ ] There are contributing guidelines (preferably in a CONTRIBUTING file) including recognition that contributions are under a contributor licence agreement
 [ ] Add a code of conduct or link to one approved by the foundation
-[ ] There is a .gitignore file excluding everything we don’t want versioned
+[x] There is a .gitignore file excluding everything we don’t want versioned
 [ ] The project is versioned (the preferred versioning system is Semantic Versioning 2.0.0)
 [ ] Releases are git tagged with a description
 [ ] There is some changelog captured, either in a CHANGELOG file at the root of the repository, or as GH releases descriptions
@@ -34,10 +34,10 @@ Content
 
 Check commits, documentation, code and go through the git history to check for the following:
 
-[ ] There is no swearing or anything offensive (use personal judgement and remember that young people and Foundation partners can read this)
-[ ] There is no confidential information
-[ ] There are no password, secrets or similar (pay special attention to the git history in case something was accidentally added and removed)
-[ ] None of our partner or founder partner names are mentioned in any context except entirely factual (“This supports Company XYZ’s new toy”, “This includes library developed by XYZ” are acceptable, but “Because XYZs library is broken” is not). Where discussions of partners in other than positive or neutral light are necessary, sign-off should be sought from the management team to ensure appropriate relationship management steps can be taken. This is a judgement call to be left to the team publishing the code, who we trust to flag when necessary. 
+[x] There is no swearing or anything offensive (use personal judgement and remember that young people and Foundation partners can read this)
+[x] There is no confidential information
+[x] There are no password, secrets or similar (pay special attention to the git history in case something was accidentally added and removed)
+[x] None of our partner or founder partner names are mentioned in any context except entirely factual (“This supports Company XYZ’s new toy”, “This includes library developed by XYZ” are acceptable, but “Because XYZs library is broken” is not). Where discussions of partners in other than positive or neutral light are necessary, sign-off should be sought from the management team to ensure appropriate relationship management steps can be taken. This is a judgement call to be left to the team publishing the code, who we trust to flag when necessary. 
 Headers of Files
 [ ] Each file should contain at least the following information as described in the SPDX documentation https://github.com/david-a-wheeler/spdx-tutorial/blob/master/README.md#spdx-license-expressions-in-source-code-files
     (c) [year file created] - [last year file modified], Micro:bit Educational Foundation and the [project name] contributors
