@@ -3,7 +3,7 @@ Checklist to complete before we can release an open source project.
 The aim of this checklist is to be the lightest-weight set of things we can check in order to expediently Open Source projects. It doesn’t replace the decision about what should be released, but rather applies after that decision has been made. In order to ensure we can be as open as possible, we’d like to keep this list as small and pragmatic as is legally viable.
 
 Licensing
-[ ] It has a valid open source license (our preferred OSS license is MIT, we accept Apache-2 as well. Other licences require discussion)
+[x] It has a valid open source license (our preferred OSS license is MIT, we accept Apache-2 as well. Other licences require discussion)
 [ ] None of the dependencies have a software license that affects the top-level project license
     [ ] TODO: Should we list here some tools that could be used to traverse the dependency licenses. Do we need to do that?
     [ ] TODO: What does this really mean? Can an MIT project depend on a GPL one, or does it need to be MIT all-the-way down? Is there a difference between releasing the library on GH and releasing a tool built with it?
@@ -18,9 +18,9 @@ GitHub
 [x] (Optional) If appropriate, there is a link to a relevant website next to the GH description
 [x] (Optional) Add topics to the repository 
 [ ] GitHub Releases are used to mark releases
-[ ] GitHub correctly interprets and lists the Licence file, if using a GitHub supported licence
+[x] GitHub correctly interprets and lists the Licence file, if using a GitHub supported licence
 Project
-[ ] There is a LICENSE file including SPDX licence identifier https://spdx.org/licenses/
+[x] There is a LICENSE file including SPDX licence identifier https://spdx.org/licenses/
 [x] There is a appropriate documentation
 [ ] There are contributing guidelines (preferably in a CONTRIBUTING file) including recognition that contributions are under a contributor licence agreement
 [ ] Add a code of conduct or link to one approved by the foundation
