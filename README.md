@@ -21,7 +21,7 @@ The source of the bootloader can be found in `./bootloader`, a simple SDK to int
 
 The mods are required to add a custom init packet, skip write protection, and display DFU progress on the LEDs.
 
-# Buiding this repo
+# Building this repo
 
 There should be these folders here: <br />
 
@@ -187,3 +187,10 @@ index 3519dac..b119319 100755
  // <h> Log message pool - Configuration of log message pool
  
 ```
+
+# License
+
+This repository contains code with different licenses
+
+The modified Nordic SDK and examples are licensed by Nordic Semiconductor ASA. Each of these files contains it's own license.
+Any remaing files were created by the Microbit Educational Foundation and are [MIT licensed](LICENSE).
