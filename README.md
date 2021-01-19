@@ -1,6 +1,7 @@
 # micro:bit v2 bootloader
 
-This repository contains the code required to compile the bootloader for micro:bit v2. This description is taken from the Nordic infocenter:
+This repository contains the code required to compile the bootloader for micro:bit V2. This description is taken from the Nordic infocenter:
+
 
 ```
 
