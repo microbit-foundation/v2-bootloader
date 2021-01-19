@@ -5,5 +5,4 @@ This project is managed on GitHub, and the best way to contribute is to jump in 
 
 https://github.com/microbit-foundation/v2-bootloader
 
-If you're interested in working on any of these items, please file an issue
-
+If you're interested in working on any of these items, please file an issue and tag @microbit-sam.
