@@ -33,13 +33,16 @@ testapp - from examples/ble_peripheral/ble_app_buttonless_dfu <br />
 
 ### getting started <br />
 Clone this repo and download nRF5SDK as below. <br />
-I have been using and updating the SES projects <br />
+
+@martinwork has been using and updating the SES (Segger Embedded Studio) projects <br />
 SES latest version is 4.30a but SDK 16 release notes mention v4.18. <br />
 https://infocenter.nordicsemi.com/topic/struct_nrf5gs/struct/nrf5gs_sw_dev.html <br />
 
+@microbit-sam has been using and updating the Makefile based projects. <br />
+
 
 ### nRF5SDK <br />
-Download the SDK folder zip (tested 16.0.0) from <br />
+Download the SDK folder zip (tested 16.0.0) from Nordic, or from the tagged release on this [repository](https://github.com/microbit-foundation/v2-bootloader/releases/tag/sdk16)<br />
 https://www.nordicsemi.com/Software-and-tools/Software/nRF5-SDK/Download <br />
 Unzip and rename to nRF5SDK <br />
 Download and build micro-ecc as described here: <br />
@@ -54,6 +57,9 @@ With SES, load the emProject in bootloader/microbit_debug/ses. <br />
 Choose Build/Build and Run - this will download SoftDevice and the bootloader. <br />
 Load the emProject in testapp/microbit/ses. <br />
 Select the Debug configuration and choose Build/Build Solution. <br />
+
+Alternatively, build the test app using make 
+`make -C ./testapp/microbit/armgcc`
 
 Using "scripts/package_testapp_debug" [see "scripts/testapp_package" below], generate "testapp_debug.zip" . <br />
 Copy the zip to an Android device or to e.g. Google Drive. <br />
