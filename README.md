@@ -193,4 +193,4 @@ index 3519dac..b119319 100755
 This repository contains code with different licenses
 
 The modified Nordic SDK and examples are licensed by Nordic Semiconductor ASA. Each of these files contains it's own license.
-Any remaing files were created by the Microbit Educational Foundation and are [MIT licensed](LICENSE).
+Any other files were created by the Micro:bit Educational Foundation and are [MIT licensed](LICENSE).
