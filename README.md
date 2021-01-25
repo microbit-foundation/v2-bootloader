@@ -36,6 +36,7 @@ Clone this repo and download nRF5SDK as below. <br />
 
 @martinwork has been using and updating the SES (Segger Embedded Studio) projects <br />
 SES latest version is 4.30a but SDK 16 release notes mention v4.18. <br />
+SES uses .emProject files to store project information. These are XML files listing information such as source files, directories, and compiler flags. <br />
 https://infocenter.nordicsemi.com/topic/struct_nrf5gs/struct/nrf5gs_sw_dev.html <br />
 
 @microbit-sam has been using and updating the Makefile based projects. <br />
