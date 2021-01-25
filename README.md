@@ -1,4 +1,28 @@
-# boot-test
+# micro:bit v2 bootloader
+
+This repository contains the code required to compile the bootloader for micro:bit V2. This description is taken from the Nordic infocenter:
+
+
+```
+
+Bootloader
+
+The bootloader module is responsible for:
+
+    booting into an application,
+    activating new firmware,
+    optionally, entering DFU mode where DFU transports are activated and new firmware can be delivered,
+    feeding the watchdog timer.
+
+Each bootloader example provided in this SDK contains one DFU transport.
+
+```
+
+The source of the bootloader can be found in `./bootloader`, a simple SDK to interact with the micro:bit's peripherals can be found in `./microbit_sdk`, and modifications to the nRF5SDK can be found in `./nRF5SDK_mods`.
+
+The mods are required to add a custom init packet, skip write protection, and display DFU progress on the LEDs.
+
+# Building this repo
 
 There should be these folders here: <br />
 
@@ -9,13 +33,18 @@ testapp - from examples/ble_peripheral/ble_app_buttonless_dfu <br />
 
 ### getting started <br />
 Clone this repo and download nRF5SDK as below. <br />
-I have been using and updating the SES projects <br />
+
+@martinwork has been using and updating the SES (Segger Embedded Studio) projects <br />
 SES latest version is 4.30a but SDK 16 release notes mention v4.18. <br />
+SES uses .emProject files to store project information. These are XML files listing information such as source files, directories, and compiler flags. <br />
 https://infocenter.nordicsemi.com/topic/struct_nrf5gs/struct/nrf5gs_sw_dev.html <br />
 
+@microbit-sam has been using and updating the Makefile based projects. <br />
+
+Both approaches to building use bash scripts, [nrfutil](https://github.com/NordicSemiconductor/pc-nrfutil), and the [Arm embedded toolchain](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm) to build the bootloader and related program files.
 
 ### nRF5SDK <br />
-Download the SDK folder zip (tested 16.0.0) from <br />
+Download the SDK folder zip (tested 16.0.0) from Nordic, or from the tagged release on this [repository](https://github.com/microbit-foundation/v2-bootloader/releases/tag/sdk16)<br />
 https://www.nordicsemi.com/Software-and-tools/Software/nRF5-SDK/Download <br />
 Unzip and rename to nRF5SDK <br />
 Download and build micro-ecc as described here: <br />
@@ -30,6 +59,9 @@ With SES, load the emProject in bootloader/microbit_debug/ses. <br />
 Choose Build/Build and Run - this will download SoftDevice and the bootloader. <br />
 Load the emProject in testapp/microbit/ses. <br />
 Select the Debug configuration and choose Build/Build Solution. <br />
+
+Alternatively, build the test app using make 
+`make -C ./testapp/microbit/armgcc`
 
 Using "scripts/package_testapp_debug" [see "scripts/testapp_package" below], generate "testapp_debug.zip" . <br />
 Copy the zip to an Android device or to e.g. Google Drive. <br />
@@ -164,3 +196,10 @@ index 3519dac..b119319 100755
  // <h> Log message pool - Configuration of log message pool
  
 ```
+
+# License
+
+This repository contains code with different licenses
+
+The modified Nordic SDK and examples are licensed by Nordic Semiconductor ASA. Each of these files contains it's own license.
+Any other files were created by the Micro:bit Educational Foundation and are [MIT licensed](LICENSE).

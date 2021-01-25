@@ -1,6 +1,9 @@
-/*
-SPDX-License-Identifier: MIT
-Copyright (c) 2020 Micro:bit Educational Foundation and contributors
+The modified Nordic SDK and examples are licensed by Nordic Semiconductor ASA. Each of these files contains it's own license.
+Any other files were created by the Micro:bit Educational Foundation and are MIT licensed.
+
+MIT License
+
+Copyright (c) 2021 Micro:bit Educational Foundation
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,17 +22,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-*/
-
-#ifndef microbit_panic_H
-#define microbit_panic_H
-
-#include "microbit_config.h"
-
-
-extern void microbit_panic_timeout( int iterations);
-
-extern void microbit_panic( int statusCode);
-
-#endif

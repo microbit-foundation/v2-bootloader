@@ -1,4 +1,6 @@
 /**
+ * SPDX-License-Identifier: MIT License
+ * Copyright (c) 2020 Micro:bit Educational Foundation
  * board_microbit.c
  */
 
