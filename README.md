@@ -41,6 +41,7 @@ https://infocenter.nordicsemi.com/topic/struct_nrf5gs/struct/nrf5gs_sw_dev.html 
 
 @microbit-sam has been using and updating the Makefile based projects. <br />
 
+Both approaches to building use bash scripts, [nrfutil](https://github.com/NordicSemiconductor/pc-nrfutil), and the [Arm embedded toolchain](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm) to build the bootloader and related program files.
 
 ### nRF5SDK <br />
 Download the SDK folder zip (tested 16.0.0) from Nordic, or from the tagged release on this [repository](https://github.com/microbit-foundation/v2-bootloader/releases/tag/sdk16)<br />
