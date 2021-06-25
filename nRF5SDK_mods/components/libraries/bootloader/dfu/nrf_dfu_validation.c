@@ -214,7 +214,7 @@ static bool stored_init_cmd_decode(void)
         p_command->init.is_debug      = 0;
         
         p_command->init.boot_validation_count         = 1;
-        p_command->init.boot_validation[0].type       = VALIDATE_CRC;
+        p_command->init.boot_validation[0].type       = NO_VALIDATION;
         p_command->init.boot_validation[0].bytes.size = 0;
         
         m_init_packet_valid = true;
