@@ -12,7 +12,7 @@ jobs:
       - run:
           name: Build image from Dockerfile
           command: |
-            docker build --build-arg PAT_ARG=${PAT} -t "ubit-bootloader-img" . 2>&1 | tee artifacts/docker_build_op.txt
+            docker build -t "ubit-bootloader-img" . 2>&1 | tee artifacts/docker_build_op.txt
       - run:
           name: Save container artefacts
           command: |

@@ -21,10 +21,8 @@ pretty_echo "Done installing tool chain"
 
 # Fetch SDK from GH release
 pretty_echo "Fetch nRFSDK v16..."
-url=`curl -H "Authorization: token $PAT" -H "Accept: application/octet-stream" "https://api.github.com/repos/microbit-foundation/v2-bootloader/releases/assets/26860208" -w "%{url_effective}\n" -I -L -s -o /dev/null`
-
-# Download from AWS
-curl -H "Accept: application/octect-stream" $url > nrf.zip
+url="https://github.com/microbit-foundation/v2-bootloader/releases/download/sdk16/nRF5SDK.zip"
+curl -sSL "$url" > nrf.zip
 
 # Unzip
 unzip -q nrf.zip
