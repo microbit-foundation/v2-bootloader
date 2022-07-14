@@ -1,9 +1,5 @@
 # Simple Dockerfile to run all the scripts on a base Ubuntu image
-FROM ubuntu:groovy-20200921
-
-# ENV
-ARG PAT_ARG
-ENV PAT=$PAT_ARG
+FROM ubuntu:22.04
 
 # Add the scripts and Pipfiles to the docker image
 COPY ci-scripts/install_toolchain.sh /home/ci-scripts/
